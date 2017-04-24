@@ -1,3 +1,7 @@
+### 0.9.0-beta-4"
+
+* Fable 1.x
+
 ### 0.8.3
 
 * Optimizing rendering #41
