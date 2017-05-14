@@ -14,6 +14,8 @@
   </ItemGroup>
   <!-- Add source files to package -->
   <ItemGroup>
-    <Content Include="*.fsproj; *.fs" PackagePath="Content\" />
+    <Content Include="*.fsproj; *.fs" PackagePath="fable\" />
+    <!--<Content Include="src\" PackagePath="fable\src\" />-->
   </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
