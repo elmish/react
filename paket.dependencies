@@ -1,3 +1,8 @@
 source https://nuget.org/api/v2
 
 nuget FAKE
+nuget FSharp.Core
+nuget Fable.Core
+nuget Fable.PowerPack
+nuget Fable.React
+nuget Fable.Elmish
