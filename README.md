@@ -1,14 +1,14 @@
 Elmish-React: React extensions for [fable-elmish](https://github.com/fable-compiler/fable-elmish) applications.
 =======
+[![Windows Build](https://ci.appveyor.com/api/projects/status/cx5i4xwsfusulw7u?svg=true)](https://ci.appveyor.com/project/et1975/react) [![Mono/OSX build](https://travis-ci.org/fable-elmish/react.svg?branch=master)](https://travis-ci.org/fable-elmish/react) [![NuGet version](https://badge.fury.io/nu/react.svg)](https://badge.fury.io/nu/react)
+
+For more information see [the docs](https://fable-elmish.github.io/react).
 
 ## Installation
 
 ```shell
-npm install --save react react-dom
-npm install --save-dev fable-core fable-powerpack fable-elmish fable-react fable-elmish-react
+paket add nuget Fable.Elmish.React
 ```
-
-Add a reference to the assemblies in the package folders (e.g. `node_modules/fable-elmish/Fable.Elmish.dll`).
 
 ## App component
 React application needs a root component to be rendered at the specified placeholder:
@@ -51,7 +51,7 @@ Can be used by both React and ReactNative applications.
 
 `lazyView` can be used with equattable models (most F# core types: records, tuples,etc).
 
-`lazyViewWith` can be used with types that don't implement `equality` constraint, such us types/instances coming from JS libraries, by passing the custom `equal` function that compares the previous and the new models.
+`lazyViewWith` can be used with types that don't implement `equality` constraint, such as types/instances coming from JS libraries, by passing the custom `equal` function that compares the previous and the new models.
 
 Usage:
 ```fsharp

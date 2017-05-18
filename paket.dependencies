@@ -1,8 +1,16 @@
 source https://nuget.org/api/v2
 
-nuget FAKE
-nuget FSharp.Core
+nuget FSharp.Core  redirects:force, content:none
 nuget Fable.Core
-nuget Fable.PowerPack
 nuget Fable.React
 nuget Fable.Elmish
+
+group Build
+framework: net46
+
+    source https://nuget.org/api/v2
+    nuget FSharp.Core  redirects:force, content:none
+    nuget FAKE
+    nuget FSharp.Formatting
+
+    github fsharp/FAKE modules/Octokit/Octokit.fsx

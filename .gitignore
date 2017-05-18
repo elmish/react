@@ -30,3 +30,4 @@ samples/react-native/navigation/windows/
 **/public/bundle.js.map
 
 *.nupkg
+Meta.props
