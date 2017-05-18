@@ -55,7 +55,7 @@ lazyView view1 model
 // val view : 'a -> Dispatch<'msg> -> ReactElement
 lazyView2 view2 model dispatch 
 
-(** the rendered view will be cached for as long as model remains the same.
+(** the rendered view will be cached for as long as `model` remains the same.
 
 Given a view function of three arguments:
 *)
@@ -63,5 +63,5 @@ Given a view function of three arguments:
 // val view : 'a -> 'b -> Dispatch<'msg> -> ReactElement
 lazyView3 view3 model1 model2 dispatch
 
-(** Elmish.React will skip calling the view3 for as long as both model1 and model2 remain unmodified.
+(** Elmish.React will skip calling the `view3` for as long as both `model1` and `model2` remain unmodified.
 *)

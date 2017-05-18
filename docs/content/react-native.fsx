@@ -44,7 +44,8 @@ module Components =
 
 [<Import("AppRegistry","react-native")>] 
 type AppRegistry =
-    static member registerComponent(appKey:string, getComponentFunc:unit->ComponentClass<_>) : unit = failwith "JS only"
+    static member registerComponent(appKey:string, getComponentFunc:unit->ComponentClass<_>) : unit = 
+        failwith "JS only"
 
 [<RequireQualifiedAccess>]
 module Program =
