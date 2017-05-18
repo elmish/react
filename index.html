@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Elmish-react: React extensions for Elmish apps
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Elmish React extensions"/>
+    <meta name="author" content="Eugene Tolmachev"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="https://fable-elmish.github.io/react/content/style_light.css" />
+    <script type="text/javascript" src="https://fable-elmish.github.io/react/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="https://fable-elmish.github.io">fable-elmish</a></li>
+          <li><a href="http://fable.io">fable</a></li>
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+        </ul>
+        <h3 class="muted"><a href="https://fable-elmish.github.io/react/index.html">elmish-react</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Elmish-react-React-extensions-for-Elmish-apps" class="anchor" href="#Elmish-react-React-extensions-for-Elmish-apps">Elmish-react: React extensions for Elmish apps</a></h1>
+<p>Elmish-react implements boilerplate to wireup the rendering of React and ReactNative components and several rendering optimization functions.</p>
+<h2><a name="Installation" class="anchor" href="#Installation">Installation</a></h2>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="shell">paket add nuget Fable.Elmish.React
+</code></pre></td></tr></table>
+<h2><a name="Program-module-extensions" class="anchor" href="#Program-module-extensions">Program module extensions</a></h2>
+<p>Both React and React Native applications needs a root component to be rendered at the specified placeholder, see
+<a href="/browser.html">browser</a> and <a href="/native.html">native</a> tutorials for details.</p>
+<h2><a name="Lazy-views" class="anchor" href="#Lazy-views">Lazy views</a></h2>
+<p>Rendering of any view can be optimizied by avoiding the DOM reconciliation and skipping the DOM construction entierly if there are no changes in the model.</p>
+<p><code>lazyView</code> can be used with equattable models (most F# core types: records, tuples,etc).</p>
+<p><code>lazyViewWith</code> can be used with types that don't implement <code>equality</code> constraint, such as types/instances coming from JS libraries, by passing the custom <code>equal</code> function that compares the previous and the new models.</p>
+<p>These functions work for both React and React Native views, here are some examples:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs10', 40)" onmouseover="showTip(event, 'fs10', 40)" class="i">Elmish</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 41)" onmouseover="showTip(event, 'fs21', 41)" class="i">React</span>
+
+<span class="c">// given a view function of one argument:</span>
+<span class="c">// val view : &#39;a -&gt; ReactElement</span>
+<span onmouseout="hideTip(event, 'fs22', 42)" onmouseover="showTip(event, 'fs22', 42)" class="f">lazyView</span> <span onmouseout="hideTip(event, 'fs1', 43)" onmouseover="showTip(event, 'fs1', 43)" class="f">view1</span> <span onmouseout="hideTip(event, 'fs15', 44)" onmouseover="showTip(event, 'fs15', 44)" class="i">model</span> 
+
+<span class="c">// given a typical view function, defined like this:</span>
+<span class="c">// val view : &#39;a -&gt; Dispatch&lt;&#39;msg&gt; -&gt; ReactElement</span>
+<span onmouseout="hideTip(event, 'fs23', 45)" onmouseover="showTip(event, 'fs23', 45)" class="f">lazyView2</span> <span onmouseout="hideTip(event, 'fs8', 46)" onmouseover="showTip(event, 'fs8', 46)" class="f">view2</span> <span onmouseout="hideTip(event, 'fs15', 47)" onmouseover="showTip(event, 'fs15', 47)" class="i">model</span> <span onmouseout="hideTip(event, 'fs19', 48)" onmouseover="showTip(event, 'fs19', 48)" class="f">dispatch</span> 
+</code></pre></td>
+</tr>
+</table>
+<p>will cache the rendered view for as long as model remains the same</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// given a view function of three arguments:</span>
+<span class="c">// val view : &#39;a -&gt; &#39;b -&gt; Dispatch&lt;&#39;msg&gt; -&gt; ReactElement</span>
+<span onmouseout="hideTip(event, 'fs24', 49)" onmouseover="showTip(event, 'fs24', 49)" class="f">lazyView3</span> <span onmouseout="hideTip(event, 'fs12', 50)" onmouseover="showTip(event, 'fs12', 50)" class="f">view3</span> <span onmouseout="hideTip(event, 'fs17', 51)" onmouseover="showTip(event, 'fs17', 51)" class="i">model1</span> <span onmouseout="hideTip(event, 'fs18', 52)" onmouseover="showTip(event, 'fs18', 52)" class="i">model2</span> <span onmouseout="hideTip(event, 'fs19', 53)" onmouseover="showTip(event, 'fs19', 53)" class="f">dispatch</span>
+</code></pre></td>
+</tr>
+</table>
+<p>will skip calling the view3 for as long as both model1 and model2 remain unmodified</p>
+
+<div class="tip" id="fs1">val view1 : model:&#39;a -&gt; Fable.Import.React.ReactElement<br /><br />Full name: Index.view1</div>
+<div class="tip" id="fs2">val model : &#39;a</div>
+<div class="tip" id="fs3">namespace Fable</div>
+<div class="tip" id="fs4">namespace Fable.Import</div>
+<div class="tip" id="fs5">module React<br /><br />from Fable.Import</div>
+<div class="tip" id="fs6">type ReactElement<br /><br />Full name: Fable.Import.React.ReactElement</div>
+<div class="tip" id="fs7">val failwith : message:string -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.failwith</div>
+<div class="tip" id="fs8">val view2 : model:&#39;a -&gt; dispatch:Elmish.Dispatch&lt;&#39;msg&gt; -&gt; Fable.Import.React.ReactElement<br /><br />Full name: Index.view2</div>
+<div class="tip" id="fs9">val dispatch : Elmish.Dispatch&lt;&#39;msg&gt;</div>
+<div class="tip" id="fs10">namespace Elmish</div>
+<div class="tip" id="fs11">type Dispatch&lt;&#39;msg&gt; = &#39;msg -&gt; unit<br /><br />Full name: Elmish.Dispatch&lt;_&gt;</div>
+<div class="tip" id="fs12">val view3 : model1:&#39;a -&gt; model2:&#39;b -&gt; dispatch:Elmish.Dispatch&lt;&#39;msg&gt; -&gt; Fable.Import.React.ReactElement<br /><br />Full name: Index.view3</div>
+<div class="tip" id="fs13">val model1 : &#39;a</div>
+<div class="tip" id="fs14">val model2 : &#39;b</div>
+<div class="tip" id="fs15">val model : string option<br /><br />Full name: Index.model</div>
+<div class="tip" id="fs16">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs17">val model1 : int option<br /><br />Full name: Index.model1</div>
+<div class="tip" id="fs18">val model2 : float option<br /><br />Full name: Index.model2</div>
+<div class="tip" id="fs19">val dispatch : Elmish.Dispatch&lt;unit&gt;<br /><br />Full name: Index.dispatch</div>
+<div class="tip" id="fs20">type unit = Unit<br /><br />Full name: Microsoft.FSharp.Core.unit</div>
+<div class="tip" id="fs21">namespace Elmish.React</div>
+<div class="tip" id="fs22">val lazyView : view:(&#39;model -&gt; Fable.Import.React.ReactElement) -&gt; (&#39;model -&gt; Fable.Import.React.ReactElement) (requires equality)<br /><br />Full name: Elmish.React.Common.lazyView</div>
+<div class="tip" id="fs23">val lazyView2 : view:(&#39;model -&gt; Elmish.Dispatch&lt;&#39;msg&gt; -&gt; Fable.Import.React.ReactElement) -&gt; (&#39;model -&gt; Elmish.Dispatch&lt;&#39;msg&gt; -&gt; Fable.Import.React.ReactElement) (requires equality)<br /><br />Full name: Elmish.React.Common.lazyView2</div>
+<div class="tip" id="fs24">val lazyView3 : view:(&#39;a -&gt; &#39;b -&gt; Elmish.Dispatch&lt;&#39;c&gt; -&gt; Fable.Import.React.ReactElement) -&gt; (&#39;a -&gt; &#39;b -&gt; Elmish.Dispatch&lt;&#39;c&gt; -&gt; Fable.Import.React.ReactElement) (requires equality and equality)<br /><br />Full name: Elmish.React.Common.lazyView3</div>
+
+        </div>
+        <div class="span3">
+          <img src="https://fable-elmish.github.io/react/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">elmish-react</li>
+            <li><a href="https://github.com/fable-elmish/react">Source Code on GitHub</a></li>
+            <li class="nav-header">Quick start</li>
+            <li><a href="https://fable-elmish.github.io/react/browser.html">Browser SPA</a></li>
+            <li><a href="https://fable-elmish.github.io/react/native.html">Native App</a></li>
+            <li class="nav-header">Modules</li>
+            <li><a href="https://fable-elmish.github.io/react/common.html">Common</a></li>
+            <li><a href="https://fable-elmish.github.io/react/react.html">React</a></li>
+            <li><a href="https://fable-elmish.github.io/react/react-native.html">ReactNative</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>
