@@ -1,6 +1,6 @@
 Elmish-React: React extensions for [fable-elmish](https://github.com/fable-compiler/fable-elmish) applications.
 =======
-[![Windows Build](https://ci.appveyor.com/api/projects/status/cx5i4xwsfusulw7u?svg=true)](https://ci.appveyor.com/project/et1975/elmish-react) [![Mono/OSX build](https://travis-ci.org/fable-elmish/react.svg?branch=master)](https://travis-ci.org/fable-elmish/react) [![NuGet version](https://badge.fury.io/nu/react.svg)](https://badge.fury.io/nu/react)
+[![Windows Build](https://ci.appveyor.com/api/projects/status/vg3200aksdbvx5me?svg=true)](https://ci.appveyor.com/project/et1975/react) [![Mono/OSX build](https://travis-ci.org/fable-elmish/react.svg?branch=master)](https://travis-ci.org/fable-elmish/react) [![NuGet version](https://badge.fury.io/nu/react.svg)](https://badge.fury.io/nu/react)
 
 React and ReactNative support for Elmish apps.
 

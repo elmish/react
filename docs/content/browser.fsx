@@ -55,6 +55,8 @@ Now we need to tell React to render our view in the div placeholder we defined i
 ```
 <div id="elmish-app"></div>
 ```
+
+by augumenting our program instance and passing the placeholder id:
 *)
 
 open Elmish.React
@@ -64,5 +66,7 @@ Program.mkSimple init update view
 |> Program.run
 
 (**
+
 And that's it.
+
 *)
