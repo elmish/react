@@ -4,6 +4,7 @@ nuget FSharp.Core  redirects:force, content:none
 nuget Fable.Core
 nuget Fable.React
 nuget Fable.Elmish
+nuget Fable.PowerPack
 
 group Build
 framework: net46

@@ -17,7 +17,7 @@ let model2 = Some 2.
 let dispatch : Elmish.Dispatch<unit> = failwith "not implemented"
 
 (**
-Elmish-react: React extensions for Elmish apps
+React extensions for Elmish apps
 =======
 
 Elmish-react implements boilerplate to wireup the rendering of React and ReactNative components and several rendering optimization functions.

@@ -1,4 +1,8 @@
-### 0.9.0-beta-4"
+### 0.9.0
+
+* Stable fable 1.x release
+
+### 0.9.0-beta-4
 
 * Fable 1.x
 
