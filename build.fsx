@@ -30,6 +30,10 @@ Target "InstallDotNetCore" (fun _ ->
    dotnetExePath <- DotNetCli.InstallDotNetSDK dotnetcliVersion
 )
 
+Target "Clean" (fun _ ->
+    CleanDir "src/obj"
+    CleanDir "src/bin"
+)
 
 Target "Install" (fun _ ->
     projects
@@ -208,7 +212,8 @@ Target "Release" (fun _ ->
 Target "Publish" DoNothing
 
 // Build order
-"Meta"
+"Clean" 
+  ==> "Meta"
   ==> "InstallDotNetCore"
   ==> "Install"
   ==> "Build"
