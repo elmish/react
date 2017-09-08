@@ -1,3 +1,7 @@
+### 1.0.0-beta-1
+
+* dotnet 2.0 SDK release
+
 ### 0.9.0
 
 * Stable fable 1.x release
