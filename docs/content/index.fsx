@@ -31,7 +31,7 @@ paket add nuget Fable.Elmish.React
 
 ## Program module extensions 
 Both React and React Native applications needs a root component to be rendered at the specified placeholder, see
-[browser](/browser.html) and [native](/native.html) tutorials for details.
+[browser](./browser.html) and [native](./native.html) tutorials for details.
 
 
 ## Lazy views
