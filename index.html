@@ -32,20 +32,23 @@
         <div class="span9" id="main">
           
 <h1><a name="React-extensions-for-Elmish-apps" class="anchor" href="#React-extensions-for-Elmish-apps">React extensions for Elmish apps</a></h1>
-<p>Elmish-react implements boilerplate to wireup the rendering of React and ReactNative components and several rendering optimization functions.</p>
+<p>Elmish-React implements boilerplate to wire up the rendering of React and React Native components and several rendering optimization functions.</p>
 <h2><a name="Installation" class="anchor" href="#Installation">Installation</a></h2>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip"><code lang="shell">paket add nuget Fable.Elmish.React
 </code></pre></td></tr></table>
 <h2><a name="Program-module-extensions" class="anchor" href="#Program-module-extensions">Program module extensions</a></h2>
-<p>Both React and React Native applications needs a root component to be rendered at the specified placeholder, see
+<p>Both React and React Native applications need a root component to be rendered at the specified placeholder, see
 <a href="./browser.html">browser</a> and <a href="./native.html">native</a> tutorials for details.</p>
 <h2><a name="Lazy-views" class="anchor" href="#Lazy-views">Lazy views</a></h2>
-<p>Rendering of any view can be optimizied by avoiding the DOM reconciliation and skipping the DOM construction entierly if there are no changes in the model.</p>
-<p><code>lazyView</code> can be used with equattable models (most F# core types: records, tuples,etc).</p>
-<p><code>lazyViewWith</code> can be used with types that don't implement <code>equality</code> constraint, such as types/instances coming from JS libraries, by passing the custom <code>equal</code> function that compares the previous and the new models.</p>
-<p>These functions work for both React and React Native views, here are some examples.</p>
+<p>By default, every time the main update function is called (upon receiving and processing a message), the entire DOM is constructed anew and passed to React for <a href="https://reactjs.org/docs/reconciliation.html">reconciliation</a>.
+If there are no changes in the model of some component, its view function will under normal circumstances not return a different result. React will then still perform reconciliation and realize that there is no need to update the component's UI.
+Consequently, when the DOM is sufficiently large or its construction extremely time-consuming, this unnecessary work may have noticeable repercussions in terms of application performance.
+Thanks to lazy views however, the update process can be optimized by avoiding DOM reconciliation and construction steps, but only if the model remains unchanged.</p>
+<p><code>lazyView</code> can be used with equatable models (most F# core types: records, tuples, etc).</p>
+<p><code>lazyViewWith</code> can be used with types that don't implement the <code>equality</code> constraint (such as types/instances coming from JS libraries) by passing the custom <code>equal</code> function that compares the previous and the new model.</p>
+<p>These functions work for both React and React Native views. They are used in the following way.</p>
 <p>Given a view function of one argument:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
@@ -59,11 +62,11 @@
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs10', 40)" onmouseover="showTip(event, 'fs10', 40)" class="i">Elmish</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 41)" onmouseover="showTip(event, 'fs21', 41)" class="i">React</span>
 
 <span class="c">// val view : &#39;a -&gt; ReactElement</span>
-<span onmouseout="hideTip(event, 'fs22', 42)" onmouseover="showTip(event, 'fs22', 42)" class="f">lazyView</span> <span onmouseout="hideTip(event, 'fs1', 43)" onmouseover="showTip(event, 'fs1', 43)" class="f">view1</span> <span onmouseout="hideTip(event, 'fs15', 44)" onmouseover="showTip(event, 'fs15', 44)" class="i">model</span> 
+<span onmouseout="hideTip(event, 'fs22', 42)" onmouseover="showTip(event, 'fs22', 42)" class="f">lazyView</span> <span onmouseout="hideTip(event, 'fs1', 43)" onmouseover="showTip(event, 'fs1', 43)" class="f">view1</span> <span onmouseout="hideTip(event, 'fs15', 44)" onmouseover="showTip(event, 'fs15', 44)" class="i">model</span>
 
 <span class="c">// or given a typical view function, defined like this:</span>
 <span class="c">// val view : &#39;a -&gt; Dispatch&lt;&#39;msg&gt; -&gt; ReactElement</span>
-<span onmouseout="hideTip(event, 'fs23', 45)" onmouseover="showTip(event, 'fs23', 45)" class="f">lazyView2</span> <span onmouseout="hideTip(event, 'fs8', 46)" onmouseover="showTip(event, 'fs8', 46)" class="f">view2</span> <span onmouseout="hideTip(event, 'fs15', 47)" onmouseover="showTip(event, 'fs15', 47)" class="i">model</span> <span onmouseout="hideTip(event, 'fs19', 48)" onmouseover="showTip(event, 'fs19', 48)" class="f">dispatch</span> 
+<span onmouseout="hideTip(event, 'fs23', 45)" onmouseover="showTip(event, 'fs23', 45)" class="f">lazyView2</span> <span onmouseout="hideTip(event, 'fs8', 46)" onmouseover="showTip(event, 'fs8', 46)" class="f">view2</span> <span onmouseout="hideTip(event, 'fs15', 47)" onmouseover="showTip(event, 'fs15', 47)" class="i">model</span> <span onmouseout="hideTip(event, 'fs19', 48)" onmouseover="showTip(event, 'fs19', 48)" class="f">dispatch</span>
 </code></pre></td>
 </tr>
 </table>
@@ -77,7 +80,7 @@
 </code></pre></td>
 </tr>
 </table>
-<p>Elmish.React will skip calling the <code>view3</code> for as long as both <code>model1</code> and <code>model2</code> remain unmodified.</p>
+<p>Elmish-React will skip calling the <code>view3</code> for as long as both <code>model1</code> and <code>model2</code> remain unmodified.</p>
 
 <div class="tip" id="fs1">val view1 : model:&#39;a -&gt; Fable.Import.React.ReactElement<br /><br />Full name: Index.view1</div>
 <div class="tip" id="fs2">val model : &#39;a</div>
