@@ -29,6 +29,12 @@ Elmish-React implements boilerplate to wire up the rendering of React and React 
 paket add nuget Fable.Elmish.React
 ```
 
+You also need to install React:
+
+```shell
+yarn add react react-dom
+```
+
 ## Program module extensions
 Both React and React Native applications need a root component to be rendered at the specified placeholder, see
 [browser](./browser.html) and [native](./native.html) tutorials for details.
