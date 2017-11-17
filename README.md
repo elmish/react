@@ -24,6 +24,5 @@ paket add nuget Fable.Elmish.React
 As with any JS dependency, if you are authoring an application (as opposed to a library), you'll also need to install React (separately, via `npm` or `yarn`):
 
 ```shell
-yarn add react
-yarn add react-dom
+yarn add react react-dom
 ```
