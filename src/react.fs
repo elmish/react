@@ -8,6 +8,9 @@ open Fable.Core
 module Program =
     module R = Fable.Helpers.React
 
+    [<Emit("typeof module === 'object' && module.hot")>]
+    let private isHotReloadEnabled(): bool = jsNative
+
     type private SingleObservable<'T>() =
         let mutable listener: IObserver<'T> option = None
         member __.Trigger v =
@@ -40,12 +43,8 @@ module Program =
         member __.componentWillUnmount() =
             disp |> Option.iter (fun d -> d.Dispose())
 
-        // In DEBUG mode, HMR may be activated so we need
-        // to update the state every time
-        #if !DEBUG
         member this.shouldComponentUpdate(_, nextState) =
             not(obj.ReferenceEquals(this.state.model, nextState.model))
-        #endif
 
         member this.render() =
             this.props.view this.state.model this.state.dispatch
@@ -57,17 +56,24 @@ module Program =
         let mutable observable: SingleObservable<_> option = None
 
         let setState model dispatch =
-            match observable with
-            | Some obs ->
-                obs.Trigger(model, dispatch)
-            | None ->
-                let obs = SingleObservable()
-                observable <- Some obs
-                let domEl = document.getElementById(placeholderId)
-                let reactEl = R.com<ReactCom<_,_>,_,_>
-                                { view = program.view
-                                  observable = obs
-                                  getInitState = fun () -> (model, dispatch) } []
-                Fable.Import.ReactDom.render(reactEl, domEl)
+            #if DEBUG
+            if isHotReloadEnabled() then
+                Fable.Import.ReactDom.render(
+                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
+                    document.getElementById(placeholderId))
+            else
+            #endif
+                match observable with
+                | Some obs ->
+                    obs.Trigger(model, dispatch)
+                | None ->
+                    let obs = SingleObservable()
+                    observable <- Some obs
+                    let domEl = document.getElementById(placeholderId)
+                    let reactEl = R.com<ReactCom<_,_>,_,_>
+                                    { view = program.view
+                                      observable = obs
+                                      getInitState = fun () -> (model, dispatch) } []
+                    Fable.Import.ReactDom.render(reactEl, domEl)
 
         { program with setState = setState }
