@@ -16,10 +16,10 @@ module Components =
     type LazyView<'model>(props) =
         inherit Component<LazyProps<'model>,obj>(props)
 
-        member this.shouldComponentUpdate(nextProps, nextState, nextContext) =
+        override this.shouldComponentUpdate(nextProps, _nextState) =
             not <| this.props.equal this.props.model nextProps.model
 
-        member this.render () =
+        override this.render () =
             this.props.render ()
 
 [<AutoOpen>]
@@ -31,7 +31,7 @@ module Common =
     let lazyViewWith (equal:'model->'model->bool)
                      (view:'model->ReactElement)
                      (state:'model) =
-        com<Components.LazyView<_>,_,_>
+        ofType<Components.LazyView<_>,_,_>
             { render = fun () -> view state
               equal = equal
               model = state }
@@ -46,7 +46,7 @@ module Common =
                       (view:'model->'msg Dispatch->ReactElement)
                       (state:'model)
                       (dispatch:'msg Dispatch) =
-        com<Components.LazyView<_>,_,_>
+        ofType<Components.LazyView<_>,_,_>
             { render = fun () -> view state dispatch
               equal = equal
               model = state }
@@ -59,7 +59,7 @@ module Common =
     /// state2: new state to render
     /// dispatch: dispatch function
     let lazyView3With (equal:_->_->bool) (view:_->_->_->ReactElement) state1 state2 (dispatch:'msg Dispatch) =
-        com<Components.LazyView<_>,_,_>
+        ofType<Components.LazyView<_>,_,_>
             { render = fun () -> view state1 state2 dispatch
               equal = equal
               model = (state1,state2) }
