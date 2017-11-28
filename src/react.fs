@@ -36,17 +36,17 @@ module Program =
         let model, dispatch = p.getInitState()
         do base.setInitState { model = model; dispatch = dispatch }
 
-        member this.componentDidMount() =
+        override this.componentDidMount() =
             disp <- Some (this.props.observable.Subscribe(fun (model, dispatch) ->
                 this.setState { model = model; dispatch = dispatch }))
 
-        member __.componentWillUnmount() =
+        override __.componentWillUnmount() =
             disp |> Option.iter (fun d -> d.Dispose())
 
-        member this.shouldComponentUpdate(_, nextState) =
+        override this.shouldComponentUpdate(_, nextState) =
             not(obj.ReferenceEquals(this.state.model, nextState.model))
 
-        member this.render() =
+        override this.render() =
             this.props.view this.state.model this.state.dispatch
 
     open Fable.Import.Browser
@@ -70,7 +70,7 @@ module Program =
                     let obs = SingleObservable()
                     observable <- Some obs
                     let domEl = document.getElementById(placeholderId)
-                    let reactEl = R.com<ReactCom<_,_>,_,_>
+                    let reactEl = R.ofType<ReactCom<_,_>,_,_>
                                     { view = program.view
                                       observable = obs
                                       getInitState = fun () -> (model, dispatch) } []
