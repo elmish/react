@@ -1,6 +1,6 @@
 NUGET
   remote: https://www.nuget.org/api/v2
-    Fable.Core (1.3.3)
+    Fable.Core (1.3.4)
       FSharp.Core (>= 4.2.3) - restriction: >= netstandard1.6
       NETStandard.Library (>= 1.6.1) - restriction: >= netstandard1.6
     Fable.Elmish (1.0)
@@ -15,7 +15,7 @@ NUGET
       Fable.Core (>= 1.2.4) - restriction: >= netstandard1.6
       Fable.Import.Browser (>= 0.1) - restriction: >= netstandard1.6
       FSharp.Core (>= 4.2.3) - restriction: >= netstandard1.6
-    Fable.React (1.3.0-beta-001)
+    Fable.React (2.0.0-beta-001)
       Fable.Core (>= 1.2.4) - restriction: >= netstandard1.6
       Fable.Import.Browser (>= 0.1) - restriction: >= netstandard1.6
       FSharp.Core (>= 4.2.3) - restriction: >= netstandard1.6
@@ -583,16 +583,16 @@ GROUP Build
 RESTRICTION: == net46
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE (4.63)
+    FAKE (4.63.2)
     FSharp.Compiler.Service (2.0.0.6)
-    FSharp.Core (4.2.1) - content: none, redirects: force
+    FSharp.Core (4.2.3) - content: none, redirects: force
     FSharp.Formatting (2.14.4)
       FSharp.Compiler.Service (2.0.0.6)
       FSharpVSPowerTools.Core (>= 2.3 < 2.4)
     FSharpVSPowerTools.Core (2.3)
       FSharp.Compiler.Service (>= 2.0.0.3)
-    Octokit (0.24)
+    Octokit (0.28)
 GITHUB
   remote: fsharp/FAKE
-    modules/Octokit/Octokit.fsx (81ed051995be6adee87931dfd1d7bf91a515d4db)
+    modules/Octokit/Octokit.fsx (0341a2e614eb2a7f34607cec914eb0ed83ce9add)
       Octokit (>= 0.20)
