@@ -1,6 +1,6 @@
-### 1.0.0
+### 1.0.1-beta-1
 
-* dotnet 2.0 SDK release
+* Use new React bindings, various text input jumping cursor workarounds
 
 ### 0.9.0
 
