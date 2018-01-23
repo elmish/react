@@ -1,4 +1,4 @@
-### 1.0.1-beta-1
+### 1.0.1
 
 * Use new React bindings, various text input jumping cursor workarounds
 

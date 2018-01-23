@@ -2,7 +2,7 @@ source https://nuget.org/api/v2
 
 nuget FSharp.Core  redirects:force, content:none
 nuget Fable.Core
-nuget Fable.React 2.0.0-beta-001
+nuget Fable.React
 nuget Fable.Elmish
 nuget Fable.PowerPack
 
