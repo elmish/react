@@ -42,8 +42,7 @@ Let's open React bindings and define our view using them:
 open Fable.Helpers.React.Props
 module R = Fable.Helpers.React
 
-let view model dispatch =
-
+let view dispatch model =
   R.div []
       [ R.button [ OnClick (fun _ -> dispatch Decrement) ] [ R.str "-" ]
         R.div [] [ R.str (sprintf "%A" model) ]
