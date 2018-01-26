@@ -47,19 +47,19 @@ let button label onPress =
             [ Color "#FFFFFF"
               TextAlign TextAlignment.Center
               Margin 5.
-              FontSize 15. ]] 
+              FontSize 15. ]]
           label
-    |> touchableHighlightWithChild 
-        [ TouchableHighlightProperties.Style 
+    |> touchableHighlightWithChild
+        [ TouchableHighlightProperties.Style
             [ BackgroundColor "#428bca"
               BorderRadius 4.
               Margin 5. ]
           TouchableHighlightProperties.UnderlayColor "#5499C4"
           OnPress onPress ]
 
-let view count (dispatch:Dispatch<Msg>) =
+let view (dispatch:Dispatch<Msg>) count =
     let onClick msg =
-      fun () -> msg |> dispatch 
+      fun () -> msg |> dispatch
 
     // construct RN view
     view [ ViewProperties.Style

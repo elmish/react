@@ -45,11 +45,13 @@ module Program =
     /// Setup rendering of root ReactNative component
     let withReactNative appKey (program:Program<_,_,_,_>) =
         AppRegistry.registerComponent(appKey, fun () -> unbox typeof<App>)
-        let render m d =
-             match appState with
-             | Some state ->
-                state.setState { state with render = fun () -> program.view m d }
-             | _ ->
-                appState <- Some { render = fun () -> program.view m d
-                                   setState = ignore }
+        let render dispatch =
+            let viewWithDispatch = program.view dispatch
+            fun model ->
+                match appState with
+                | Some state ->
+                    state.setState { state with render = fun () -> viewWithDispatch model }
+                | _ ->
+                    appState <- Some { render = fun () -> viewWithDispatch model
+                                       setState = ignore }
         { program with setState = render }
