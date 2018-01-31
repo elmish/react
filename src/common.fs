@@ -1,6 +1,5 @@
 namespace Elmish.React
 
-open System
 open Fable.Import.React
 open Fable.Helpers.React
 open Fable.Core
