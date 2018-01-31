@@ -1,10 +1,5 @@
 namespace Elmish.React
 
-open System
-open Fable.Import.React
-open Fable.Core
-open Fable.Helpers.React
-
 [<AutoOpen>]
 module Helpers =
     open Fable.Helpers.React.Props
