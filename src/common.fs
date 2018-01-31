@@ -42,11 +42,11 @@ module Common =
     /// state: new state to render
     /// dispatch: dispatch function
     let lazyView2With (equal:'model->'model->bool)
-                      (view:'model->'msg Dispatch->ReactElement)
+                      (view:'msg Dispatch->'model->ReactElement)
                       (state:'model)
                       (dispatch:'msg Dispatch) =
         ofType<Components.LazyView<_>,_,_>
-            { render = fun () -> view state dispatch
+            { render = fun () -> view dispatch state
               equal = equal
               model = state }
             []
@@ -59,7 +59,7 @@ module Common =
     /// dispatch: dispatch function
     let lazyView3With (equal:_->_->bool) (view:_->_->_->ReactElement) state1 state2 (dispatch:'msg Dispatch) =
         ofType<Components.LazyView<_>,_,_>
-            { render = fun () -> view state1 state2 dispatch
+            { render = fun () -> view dispatch state1 state2
               equal = equal
               model = (state1,state2) }
             []
@@ -71,7 +71,7 @@ module Common =
 
     /// Avoid rendering the view unless the model has changed.
     /// view: function of two arguments to render the model using the dispatch
-    let lazyView2 (view:'model->'msg Dispatch->ReactElement) =
+    let lazyView2 (view:'msg Dispatch->'model->ReactElement) =
         lazyView2With (=) view
 
     /// Avoid rendering the view unless the model has changed.
