@@ -15,7 +15,14 @@ module Program =
     open Fable.Import.Browser
 
     /// Setup rendering of root React component inside html element identified by placeholderId
-    let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
+    ///
+    /// This version uses `requestAnimationFrame` to optimize rendering in scenarios with updates
+    /// at a higher rate than 60FPS. While it can be faster it also break few React idoms like
+    /// [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and
+    /// should be used with caution.
+    ///
+    /// For more information see [Issue #12](https://github.com/fable-elmish/react/issues/12).
+    let withReactAnimationFrameOptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         let mutable lastRequest = None
         let setState dispatch =
             let viewWithDispatch = program.view dispatch
