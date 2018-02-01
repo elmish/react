@@ -39,8 +39,9 @@ module Program =
 
         { program with setState = setState }
 
-    /// Setup rendering of root React component inside html element identified by placeholderId
-    let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
+    /// `withReact` uses `requestAnimationFrame` to optimize rendering in scenarios with updates at a higher rate than 60FPS, but this makes the cursor jump to the end in `input` elements.
+    /// This function works around the glitch if you don't need the optimization (see https://github.com/fable-elmish/react/issues/12).
+    let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         let setState dispatch =
             let viewWithDispatch = program.view dispatch
             fun model ->
