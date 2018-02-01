@@ -1,3 +1,7 @@
+### 2.0.0-beta-1
+
+* Changing order of arguments and defaulting to no RAF
+
 ### 1.0.1
 
 * Use new React bindings, various text input jumping cursor workarounds

@@ -6,7 +6,7 @@ module Helpers =
     open Fable.Core.JsInterop
 
     /// `Ref` callback that sets the value of an input textbox after DOM element is created.
-    /// Can be used override input box value.
+    /// Can be used to override input box value.
     let inline valueOrDefault value =
         Ref <| (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
 
@@ -17,11 +17,10 @@ module Program =
     /// Setup rendering of root React component inside html element identified by placeholderId
     ///
     /// This version uses `requestAnimationFrame` to optimize rendering in scenarios with updates
-    /// at a higher rate than 60FPS. While it can be faster it also break few React idoms like
-    /// [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components) and
-    /// should be used with caution.
+    /// at a higher rate than 60FPS. While it can be faster it also breaks a few React idioms like
+    /// [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components).
     ///
-    /// For more information see [Issue #12](https://github.com/fable-elmish/react/issues/12).
+    /// See [Issue #12](https://github.com/fable-elmish/react/issues/12) for details.
     let withReactAnimationFrameOptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         let mutable lastRequest = None
         let setState dispatch =
@@ -39,9 +38,8 @@ module Program =
 
         { program with setState = setState }
 
-    /// `withReact` uses `requestAnimationFrame` to optimize rendering in scenarios with updates at a higher rate than 60FPS, but this makes the cursor jump to the end in `input` elements.
-    /// This function works around the glitch if you don't need the optimization (see https://github.com/fable-elmish/react/issues/12).
-    let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
+    /// Setup rendering of root React component inside html element identified by placeholderId
+    let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
         let setState dispatch =
             let viewWithDispatch = program.view dispatch
             fun model ->

@@ -7,6 +7,7 @@ then
   if [ $exit_code -ne 0 ]; then
   	exit $exit_code
   fi
+  .paket/paket.exe generate-load-scripts -t fsx -f netstandard2.0 -g Main
 
   packages/build/FAKE/tools/FAKE.exe $@ --fsiargs build.fsx
 else
@@ -16,5 +17,7 @@ else
   if [ $exit_code -ne 0 ]; then
   	exit $exit_code
   fi
+  mono .paket/paket.exe generate-load-scripts -t fsx -f netstandard2.0 -g Main
+
   mono packages/build/FAKE/tools/FAKE.exe $@ --fsiargs -d:MONO build.fsx
 fi

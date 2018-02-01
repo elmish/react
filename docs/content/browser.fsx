@@ -1,11 +1,8 @@
 (*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Core/lib/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#I "../../packages/Fable.React/lib/netstandard1.6"
-#r "Fable.Core.dll"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
+#I "../../.paket/load/netstandard2.0"
+#I "../../src/bin/Debug/netstandard2.0"
+#load "Fable.React.fsx"
+#load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 open Elmish
 
@@ -29,8 +26,7 @@ open Elmish
 let init () =
   0
 
-let update (msg:Msg) count =
-  match msg with
+let update count = function
   | Increment -> count + 1
   | Decrement -> count - 1
 (**
@@ -42,11 +38,14 @@ Let's open React bindings and define our view using them:
 open Fable.Helpers.React.Props
 module R = Fable.Helpers.React
 
-let view dispatch model =
-  R.div []
-      [ R.button [ OnClick (fun _ -> dispatch Decrement) ] [ R.str "-" ]
-        R.div [] [ R.str (sprintf "%A" model) ]
-        R.button [ OnClick (fun _ -> dispatch Increment) ] [ R.str "+" ] ]
+let view dispatch =
+  let onClick msg =
+    OnClick (fun _ -> dispatch msg)
+  fun model ->
+    R.div []
+        [ R.button [onClick Decrement] [ R.str "-" ]
+          R.div [] [ R.str (sprintf "%A" model) ]
+          R.button [onClick Increment] [ R.str "+" ] ]
 
 (**
 ### Create the program instance

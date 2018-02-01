@@ -1,14 +1,13 @@
 (*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#I "../../packages/Fable.React/lib/netstandard1.6"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
+#I "../../.paket/load/netstandard2.0"
+#I "../../src/bin/Debug/netstandard2.0"
+#load "Fable.React.fsx"
+#load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 
 let view1 model : Fable.Import.React.ReactElement = failwith "not implemented"
-let view2 model (dispatch:Elmish.Dispatch<'msg>) : Fable.Import.React.ReactElement = failwith "not implemented"
-let view3 model1 model2 (dispatch:Elmish.Dispatch<'msg>) : Fable.Import.React.ReactElement = failwith "not implemented"
+let view2 (dispatch:Elmish.Dispatch<'msg>) model : Fable.Import.React.ReactElement = failwith "not implemented"
+let view3 (dispatch:Elmish.Dispatch<'msg>) model1 model2 : Fable.Import.React.ReactElement = failwith "not implemented"
 
 let model = Some ""
 let model1 = Some 1
@@ -61,16 +60,16 @@ open Elmish.React
 lazyView view1 model
 
 // or given a typical view function, defined like this:
-// val view : 'a -> Dispatch<'msg> -> ReactElement
-lazyView2 view2 model dispatch
+// val view : Dispatch<'msg> -> 'a -> ReactElement
+lazyView2 view2 dispatch model
 
 (** the rendered view will be cached for as long as `model` remains the same.
 
 Given a view function of three arguments:
 *)
 
-// val view : 'a -> 'b -> Dispatch<'msg> -> ReactElement
-lazyView3 view3 model1 model2 dispatch
+// val view : Dispatch<'msg> -> 'a -> 'b -> ReactElement
+lazyView3 view3 dispatch model1 model2
 
 (** Elmish-React will skip calling the `view3` for as long as both `model1` and `model2` remain unmodified.
 *)

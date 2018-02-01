@@ -1,11 +1,8 @@
 (*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#I "../../packages/Fable.React/lib/netstandard1.6"
-#I "../../packages/Fable.React.Native/lib/netstandard1.6"
-#r "Fable.React.dll"
-#r "Fable.React.Native.dll"
-#r "Fable.Elmish.dll"
+#I "../../.paket/load/netstandard2.0"
+#I "../../src/bin/Debug/netstandard2.0"
+#load "Fable.React.Native.fsx"
+#load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 
 (**
@@ -28,8 +25,7 @@ open Elmish
 let init () =
   0
 
-let update (msg:Msg) count =
-  match msg with
+let update count = function
   | Increment -> count + 1
   | Decrement -> count - 1
 
@@ -57,23 +53,23 @@ let button label onPress =
           TouchableHighlightProperties.UnderlayColor "#5499C4"
           OnPress onPress ]
 
-let view (dispatch:Dispatch<Msg>) count =
+let view (dispatch:Dispatch<Msg>) =
     let onClick msg =
       fun () -> msg |> dispatch
-
-    // construct RN view
-    view [ ViewProperties.Style
-            [ AlignSelf Alignment.Stretch
-              Padding 20.
-              ShadowColor "#000000"
-              ShadowOpacity 0.8
-              ShadowRadius 3.
-              JustifyContent JustifyContent.Center
-              Flex 1.
-              BackgroundColor "#615A5B" ]]
-         [ button "-" (onClick Decrement)
-           text [] (string count)
-           button "+" (onClick Increment) ]
+    fun count ->
+      // construct RN view
+      view [ ViewProperties.Style
+              [ AlignSelf Alignment.Stretch
+                Padding 20.
+                ShadowColor "#000000"
+                ShadowOpacity 0.8
+                ShadowRadius 3.
+                JustifyContent JustifyContent.Center
+                Flex 1.
+                BackgroundColor "#615A5B" ]]
+           [ button "-" (onClick Decrement)
+             text [] (string count)
+             button "+" (onClick Increment) ]
 
 (**
 ### Create the program instance

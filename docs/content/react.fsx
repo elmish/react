@@ -1,20 +1,14 @@
 ﻿(*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Core/lib/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#I "../../packages/Fable.React/lib/netstandard1.6"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
+#I ".paket/load/netstandard2.0"
+#I "../../.paket/load/netstandard2.0"
+#I "../../src/bin/Debug/netstandard2.0"
+#load "Fable.React.fsx"
+#load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 
 (**
 *)
 namespace Elmish.React
-
-open System
-open Fable.Import.React
-open Fable.Core
-open Fable.Helpers.React
 
 [<AutoOpen>]
 module Helpers =
@@ -22,7 +16,7 @@ module Helpers =
     open Fable.Core.JsInterop
 
     /// `Ref` callback that sets the value of an input textbox after DOM element is created.
-    /// Can be used override input box value.
+    /// Can be used to override input box value.
     let inline valueOrDefault value =
         Ref <| (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
 
@@ -31,7 +25,13 @@ module Program =
     open Fable.Import.Browser
 
     /// Setup rendering of root React component inside html element identified by placeholderId
-    let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
+    ///
+    /// This version uses `requestAnimationFrame` to optimize rendering in scenarios with updates
+    /// at a higher rate than 60FPS. While it can be faster it also breaks a few React idioms like
+    /// [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components).
+    ///
+    /// See [Issue #12](https://github.com/fable-elmish/react/issues/12) for details.
+    let withReactAnimationFrameOptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         let mutable lastRequest = None
         let setState dispatch =
             let viewWithDispatch = program.view dispatch
@@ -48,9 +48,8 @@ module Program =
 
         { program with setState = setState }
 
-    /// `withReact` uses `requestAnimationFrame` to optimize rendering in scenarios with updates at a higher rate than 60FPS, but this makes the cursor jump to the end in `input` elements.
-    /// This function works around the glitch if you don't need the optimization (see https://github.com/fable-elmish/react/issues/12).
-    let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
+    /// Setup rendering of root React component inside html element identified by placeholderId
+    let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
         let setState dispatch =
             let viewWithDispatch = program.view dispatch
             fun model ->

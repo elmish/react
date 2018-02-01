@@ -1,17 +1,15 @@
 ﻿(*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Core/lib/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#I "../../packages/Fable.React/lib/netstandard1.6"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
+#I ".paket/load/netstandard2.0"
+#I "../../.paket/load/netstandard2.0"
+#I "../../src/bin/Debug/netstandard2.0"
+#load "Fable.React.fsx"
+#load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 
 (**
 *)
 namespace Elmish.React
 
-open System
 open Fable.Import.React
 open Fable.Helpers.React
 open Fable.Core
@@ -51,30 +49,29 @@ module Common =
     /// Avoid rendering the view unless the model has changed.
     /// equal: function to compare the previous and the new states
     /// view: function to render the model using the dispatch
-    /// state: new state to render
     /// dispatch: dispatch function
+    /// state: new state to render
     let lazyView2With (equal:'model->'model->bool)
-                      (view:'model->'msg Dispatch->ReactElement)
-                      (state:'model)
+                      (view:'msg Dispatch->'model->ReactElement) 
                       (dispatch:'msg Dispatch) =
-        ofType<Components.LazyView<_>,_,_>
-            { render = fun () -> view state dispatch
-              equal = equal
-              model = state }
-            []
+        lazyViewWith equal (view dispatch)
 
     /// Avoid rendering the view unless the model has changed.
     /// equal: function to compare the previous and the new model (a tuple of two states)
     /// view: function to render the model using the dispatch
+    /// dispatch: dispatch function
     /// state1: new state to render
     /// state2: new state to render
-    /// dispatch: dispatch function
-    let lazyView3With (equal:_->_->bool) (view:_->_->_->ReactElement) state1 state2 (dispatch:'msg Dispatch) =
-        ofType<Components.LazyView<_>,_,_>
-            { render = fun () -> view state1 state2 dispatch
-              equal = equal
-              model = (state1,state2) }
-            []
+    let lazyView3With (equal:_->_->bool)
+                      (view:'msg Dispatch->_->_->ReactElement)
+                      (dispatch:'msg Dispatch) =
+        let view' = view dispatch
+        fun state1 state2 ->
+            ofType<Components.LazyView<_>,_,_>
+                { render = fun () -> view' state1 state2
+                  equal = equal
+                  model = (state1,state2) }
+                []
 
     /// Avoid rendering the view unless the model has changed.
     /// view: function of model to render the view
@@ -83,12 +80,12 @@ module Common =
 
     /// Avoid rendering the view unless the model has changed.
     /// view: function of two arguments to render the model using the dispatch
-    let lazyView2 (view:'model->'msg Dispatch->ReactElement) =
+    let lazyView2 (view:'msg Dispatch->'model->ReactElement) =
         lazyView2With (=) view
 
     /// Avoid rendering the view unless the model has changed.
     /// view: function of three arguments to render the model using the dispatch
-    let lazyView3 (view:_->_->_->ReactElement) =
-        lazyView3With (=) view
+    let lazyView3 (view:'msg Dispatch->_->_->ReactElement) =
+        lazyView3With (=) view 
 
 

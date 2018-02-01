@@ -1,17 +1,15 @@
 ﻿(*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Core/lib/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#I "../../packages/Fable.React/lib/netstandard1.6"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
+#I ".paket/load/netstandard2.0"
+#I "../../.paket/load/netstandard2.0"
+#I "../../src/bin/Debug/netstandard2.0"
+#load "Fable.React.fsx"
+#load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 
 (**
 *)
 namespace Elmish.ReactNative
 
-open System
 open Fable.Import.React
 open Fable.Core
 open Elmish
@@ -49,7 +47,6 @@ type AppRegistry =
 
 [<RequireQualifiedAccess>]
 module Program =
-    open Fable.Core.JsInterop
     open Elmish.React
     open Components
 
