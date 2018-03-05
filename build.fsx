@@ -61,11 +61,12 @@ Target "Meta" (fun _ ->
       "<PackageIconUrl>https://raw.githubusercontent.com/fable-elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>"
       sprintf "<RepositoryUrl>%s/%s</RepositoryUrl>" gitHome gitName
       "<PackageTags>fable;elmish;fsharp;React;React-Native</PackageTags>"
+      sprintf "<PackageReleaseNotes>%s</PackageReleaseNotes>" (List.head release.Notes)
       "<Authors>Eugene Tolmachev</Authors>"
       sprintf "<Version>%s</Version>" (string release.SemVer)
       "</PropertyGroup>"
       "</Project>"]
-    |> WriteToFile false "Meta.props"
+    |> WriteToFile false "Directory.Build.props"
 )
 
 // --------------------------------------------------------------------------------------

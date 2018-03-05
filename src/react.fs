@@ -17,7 +17,7 @@ module Program =
     /// Setup rendering of root React component inside html element identified by placeholderId
     ///
     /// This version uses `requestAnimationFrame` to optimize rendering in scenarios with updates
-    /// at a higher rate than 60FPS. While it can be faster it also breaks a few React idioms like
+    /// at a higher rate than 60 per second. It also breaks a few React idioms like
     /// [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components).
     ///
     /// See [Issue #12](https://github.com/fable-elmish/react/issues/12) for details.

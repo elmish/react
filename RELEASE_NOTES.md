@@ -1,3 +1,7 @@
+### 2.0.0-beta-2
+
+* Adding `.hydrate` to support SSR
+
 ### 2.0.0-beta-1
 
 * Changing order of arguments and defaulting to no RAF
