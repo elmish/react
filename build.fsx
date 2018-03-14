@@ -73,7 +73,7 @@ Target "Meta" (fun _ ->
 // Build a NuGet package
 
 Target "Package" (fun _ ->
-    runDotnet "src" "pack"
+    runDotnet "src" "pack /p:GenerateDocumentationFile=true"
 )
 
 Target "PublishNuget" (fun _ ->
