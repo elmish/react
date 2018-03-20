@@ -1,3 +1,7 @@
+### 1.0.2
+
+* Adding support for SSR, credit: @zaaack
+
 ### 1.0.1
 
 * Use new React bindings, various text input jumping cursor workarounds
