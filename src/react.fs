@@ -45,3 +45,13 @@ module Program =
             )
 
         { program with setState = setState }
+
+    /// Setup rendering of root React component inside html element identified by placeholderId using React.hydrate
+    let withReactHydrate placeholderId (program:Elmish.Program<_,_,_,_>) =
+        let setState model dispatch =
+            Fable.Import.ReactDom.hydrate(
+                lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
+                document.getElementById(placeholderId)
+            )
+
+        { program with setState = setState }
