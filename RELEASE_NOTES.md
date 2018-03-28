@@ -1,3 +1,7 @@
+### 1.0.3
+
+* Add doc xml
+
 ### 1.0.2
 
 * Adding support for SSR, credit: @zaaack

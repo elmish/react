@@ -37,7 +37,7 @@ Target "Clean" (fun _ ->
 
 Target "Install" (fun _ ->
     projects
-    |> Seq.iter (fun s -> 
+    |> Seq.iter (fun s ->
         let dir = IO.Path.GetDirectoryName s
         runDotnet dir "restore"
     )
@@ -45,7 +45,7 @@ Target "Install" (fun _ ->
 
 Target "Build" (fun _ ->
     projects
-    |> Seq.iter (fun s -> 
+    |> Seq.iter (fun s ->
         let dir = IO.Path.GetDirectoryName s
         runDotnet dir "build")
 )
@@ -61,7 +61,7 @@ Target "Meta" (fun _ ->
       "<PackageIconUrl>https://raw.githubusercontent.com/fable-elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>"
       sprintf "<RepositoryUrl>%s/%s</RepositoryUrl>" gitHome gitName
       "<PackageTags>fable;elmish;fsharp;React;React-Native</PackageTags>"
-      "<Authors>Eugene Tolmachev</Authors>" 
+      "<Authors>Eugene Tolmachev</Authors>"
       sprintf "<Version>%s</Version>" (string release.SemVer)
       "</PropertyGroup>"
       "</Project>"]
@@ -72,7 +72,7 @@ Target "Meta" (fun _ ->
 // Build a NuGet package
 
 Target "Package" (fun _ ->
-    runDotnet "src" "pack"
+    runDotnet "src" "pack /p:GenerateDocumentationFile=true"
 )
 
 Target "PublishNuget" (fun _ ->
@@ -107,7 +107,7 @@ let executeFAKEWithOutput workingDirectory script fsiargs envArgs =
     exitCode
 
 let copyFiles() =
-    let header = 
+    let header =
         splitStr "\n" """(*** hide ***)
 #I "../../src/bin/Debug/netstandard1.6"
 #I "../../packages/Fable.Core/lib/netstandard1.6"
@@ -122,8 +122,8 @@ let copyFiles() =
 
     !!"src/*.fs"
     |> Seq.map (fun fn -> ReadFile fn |> Seq.append header, fn)
-    |> Seq.iter (fun (lines,fn) -> 
-        let fsx = Path.Combine("docs/content",Path.ChangeExtension(fn |> Path.GetFileName, "fsx")) 
+    |> Seq.iter (fun (lines,fn) ->
+        let fsx = Path.Combine("docs/content",Path.ChangeExtension(fn |> Path.GetFileName, "fsx"))
         lines |> WriteFile fsx)
 
 // Documentation
@@ -212,7 +212,7 @@ Target "Release" (fun _ ->
 Target "Publish" DoNothing
 
 // Build order
-"Clean" 
+"Clean"
   ==> "Meta"
   ==> "InstallDotNetCore"
   ==> "Install"
@@ -228,7 +228,7 @@ Target "Publish" DoNothing
         "Package"
         "PublishNuget"
         "ReleaseDocs" ]
-  
-  
+
+
 // start build
 RunTargetOrDefault "Build"
