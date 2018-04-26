@@ -11,7 +11,7 @@ open Fake.Git
 
 
 let gitName = "react"
-let gitOwner = "fable-elmish"
+let gitOwner = "elmish"
 let gitHome = sprintf "https://github.com/%s" gitOwner
 
 // Filesets
@@ -57,8 +57,8 @@ Target "Meta" (fun _ ->
       "<PropertyGroup>"
       "<Description>Elmish extensions for writing Fable apps with React and ReactNative</Description>"
       sprintf "<PackageProjectUrl>http://%s.github.io/%s</PackageProjectUrl>" gitOwner gitName
-      "<PackageLicenseUrl>https://raw.githubusercontent.com/fable-elmish/react/master/LICENSE.md</PackageLicenseUrl>"
-      "<PackageIconUrl>https://raw.githubusercontent.com/fable-elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>"
+      "<PackageLicenseUrl>https://raw.githubusercontent.com/elmish/react/master/LICENSE.md</PackageLicenseUrl>"
+      "<PackageIconUrl>https://raw.githubusercontent.com/elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>"
       sprintf "<RepositoryUrl>%s/%s</RepositoryUrl>" gitHome gitName
       "<PackageTags>fable;elmish;fsharp;React;React-Native</PackageTags>"
       sprintf "<PackageReleaseNotes>%s</PackageReleaseNotes>" (List.head release.Notes)

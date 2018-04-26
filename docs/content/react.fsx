@@ -30,7 +30,7 @@ module Program =
     /// at a higher rate than 60FPS. While it can be faster it also breaks a few React idioms like
     /// [Controlled Components](https://reactjs.org/docs/forms.html#controlled-components).
     ///
-    /// See [Issue #12](https://github.com/fable-elmish/react/issues/12) for details.
+    /// See [Issue #12](https://github.com/elmish/react/issues/12) for details.
     let withReactAnimationFrameOptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         let mutable lastRequest = None
         let setState dispatch =
