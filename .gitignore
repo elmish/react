@@ -30,7 +30,7 @@ samples/react-native/navigation/windows/
 **/public/bundle.js.map
 
 *.nupkg
-Meta.props
+Directory.Build.props
 docs/output
 temp
 paket-files

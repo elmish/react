@@ -36,7 +36,7 @@ module Program =
         { program with setState = setState }
 
     /// `withReact` uses `requestAnimationFrame` to optimize rendering in scenarios with updates at a higher rate than 60FPS, but this makes the cursor jump to the end in `input` elements.
-    /// This function works around the glitch if you don't need the optimization (see https://github.com/fable-elmish/react/issues/12).
+    /// This function works around the glitch if you don't need the optimization (see https://github.com/elmish/react/issues/12).
     let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         let setState model dispatch =
             Fable.Import.ReactDom.render(

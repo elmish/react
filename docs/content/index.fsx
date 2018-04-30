@@ -1,7 +1,6 @@
 (*** hide ***)
 #I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#I "../../packages/Fable.React/lib/netstandard1.6"
+#I "../../.paket/load/netstandard2.0"
 #r "Fable.React.dll"
 #r "Fable.Elmish.dll"
 #r "Fable.Elmish.React.dll"

@@ -11,7 +11,7 @@ open Fake.Git
 
 
 let gitName = "react"
-let gitOwner = "fable-elmish"
+let gitOwner = "elmish"
 let gitHome = sprintf "https://github.com/%s" gitOwner
 
 // Filesets
@@ -19,7 +19,7 @@ let projects  =
       !! "src/**.fsproj"
 
 
-let dotnetcliVersion = "2.0.0"
+let dotnetcliVersion = DotNetCli.GetDotNetSDKVersionFromGlobalJson()
 let mutable dotnetExePath = "dotnet"
 
 let runDotnet workingDir =
@@ -57,15 +57,16 @@ Target "Meta" (fun _ ->
       "<PropertyGroup>"
       "<Description>Elmish extensions for writing Fable apps with React and ReactNative</Description>"
       sprintf "<PackageProjectUrl>http://%s.github.io/%s</PackageProjectUrl>" gitOwner gitName
-      "<PackageLicenseUrl>https://raw.githubusercontent.com/fable-elmish/react/master/LICENSE.md</PackageLicenseUrl>"
-      "<PackageIconUrl>https://raw.githubusercontent.com/fable-elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>"
+      "<PackageLicenseUrl>https://raw.githubusercontent.com/elmish/react/master/LICENSE.md</PackageLicenseUrl>"
+      "<PackageIconUrl>https://raw.githubusercontent.com/elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>"
       sprintf "<RepositoryUrl>%s/%s</RepositoryUrl>" gitHome gitName
       "<PackageTags>fable;elmish;fsharp;React;React-Native</PackageTags>"
+      sprintf "<PackageReleaseNotes>%s</PackageReleaseNotes>" (List.head release.Notes)
       "<Authors>Eugene Tolmachev</Authors>"
       sprintf "<Version>%s</Version>" (string release.SemVer)
       "</PropertyGroup>"
       "</Project>"]
-    |> WriteToFile false "Meta.props"
+    |> WriteToFile false "Directory.Build.props"
 )
 
 // --------------------------------------------------------------------------------------
@@ -109,12 +110,11 @@ let executeFAKEWithOutput workingDirectory script fsiargs envArgs =
 let copyFiles() =
     let header =
         splitStr "\n" """(*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Core/lib/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#I "../../packages/Fable.React/lib/netstandard1.6"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
+#I ".paket/load/netstandard2.0"
+#I "../../.paket/load/netstandard2.0"
+#I "../../src/bin/Debug/netstandard2.0"
+#load "Fable.React.Native.fsx"
+#load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 
 (**

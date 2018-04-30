@@ -1,10 +1,9 @@
 ﻿(*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Core/lib/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#I "../../packages/Fable.React/lib/netstandard1.6"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
+#I ".paket/load/netstandard2.0"
+#I "../../.paket/load/netstandard2.0"
+#I "../../src/bin/Debug/netstandard2.0"
+#load "Fable.React.Native.fsx"
+#load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 
 (**
@@ -47,10 +46,20 @@ module Program =
         { program with setState = setState }
 
     /// `withReact` uses `requestAnimationFrame` to optimize rendering in scenarios with updates at a higher rate than 60FPS, but this makes the cursor jump to the end in `input` elements.
-    /// This function works around the glitch if you don't need the optimization (see https://github.com/fable-elmish/react/issues/12).
+    /// This function works around the glitch if you don't need the optimization (see https://github.com/elmish/react/issues/12).
     let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         let setState model dispatch =
             Fable.Import.ReactDom.render(
+                lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
+                document.getElementById(placeholderId)
+            )
+
+        { program with setState = setState }
+
+    /// Setup rendering of root React component inside html element identified by placeholderId using React.hydrate
+    let withReactHydrate placeholderId (program:Elmish.Program<_,_,_,_>) =
+        let setState model dispatch =
+            Fable.Import.ReactDom.hydrate(
                 lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
                 document.getElementById(placeholderId)
             )
