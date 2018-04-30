@@ -12,19 +12,19 @@
     <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
 
-    <link type="text/css" rel="stylesheet" href="https://fable-elmish.github.io/react/content/style_light.css" />
-    <script type="text/javascript" src="https://fable-elmish.github.io/react/content/tips.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://elmish.github.io/react/content/style_light.css" />
+    <script type="text/javascript" src="https://elmish.github.io/react/content/tips.js"></script>
     <style>span.l { display: none }</style>
   </head>
   <body>
     <div class="container">
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li><a href="https://fable-elmish.github.io">fable-elmish</a></li>
+          <li><a href="https://elmish.github.io">elmish</a></li>
           <li><a href="http://fable.io">fable</a></li>
           <li><a href="http://fsharp.org">fsharp.org</a></li>
         </ul>
-        <h3 class="muted"><a href="https://fable-elmish.github.io/react/index.html">elmish-react</a></h3>
+        <h3 class="muted"><a href="https://elmish.github.io/react/index.html">elmish-react</a></h3>
       </div>
       <hr />
       <div class="row">
@@ -112,15 +112,15 @@
 <span class="l">80: </span>
 <span class="l">81: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">namespace</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">Elmish</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">React</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">namespace</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">Elmish</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="i">React</span>
 
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">System</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">Import</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">React</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="i">Helpers</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="i">React</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 10)" onmouseover="showTip(event, 'fs1', 10)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 11)" onmouseover="showTip(event, 'fs1', 11)" class="i">Core</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="i">System</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">Import</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="i">React</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 7)" onmouseover="showTip(event, 'fs3', 7)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="i">Helpers</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="i">React</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 10)" onmouseover="showTip(event, 'fs1', 10)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">Core</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 12)" onmouseover="showTip(event, 'fs1', 12)" class="i">Elmish</span>
 
-<span class="k">type</span> [&lt;<span onmouseout="hideTip(event, 'fs1', 13)" onmouseover="showTip(event, 'fs1', 13)" class="i">Pojo</span>&gt;] <span onmouseout="hideTip(event, 'fs1', 14)" onmouseover="showTip(event, 'fs1', 14)" class="t">LazyProps</span><span class="o">&lt;</span><span class="o">&#39;</span><span onmouseout="hideTip(event, 'fs1', 15)" onmouseover="showTip(event, 'fs1', 15)" class="i">model</span><span class="o">&gt;</span> <span class="o">=</span> {
+<span class="k">type</span> [&lt;<span onmouseout="hideTip(event, 'fs1', 13)" onmouseover="showTip(event, 'fs1', 13)" class="t">Pojo</span>&gt;] <span onmouseout="hideTip(event, 'fs1', 14)" onmouseover="showTip(event, 'fs1', 14)" class="t">LazyProps</span><span class="o">&lt;</span><span class="o">&#39;</span><span onmouseout="hideTip(event, 'fs1', 15)" onmouseover="showTip(event, 'fs1', 15)" class="i">model</span><span class="o">&gt;</span> <span class="o">=</span> {
     <span onmouseout="hideTip(event, 'fs1', 16)" onmouseover="showTip(event, 'fs1', 16)" class="i">model</span><span class="o">:</span><span class="o">&#39;</span><span onmouseout="hideTip(event, 'fs1', 17)" onmouseover="showTip(event, 'fs1', 17)" class="i">model</span>
     <span onmouseout="hideTip(event, 'fs1', 18)" onmouseover="showTip(event, 'fs1', 18)" class="i">render</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs1', 19)" onmouseover="showTip(event, 'fs1', 19)" class="t">unit</span><span class="k">-&gt;</span><span onmouseout="hideTip(event, 'fs1', 20)" onmouseover="showTip(event, 'fs1', 20)" class="t">ReactElement</span>
     <span onmouseout="hideTip(event, 'fs1', 21)" onmouseover="showTip(event, 'fs1', 21)" class="i">equal</span><span class="o">:</span><span class="o">&#39;</span><span onmouseout="hideTip(event, 'fs1', 22)" onmouseover="showTip(event, 'fs1', 22)" class="i">model</span><span class="k">-&gt;</span><span class="o">&#39;</span><span onmouseout="hideTip(event, 'fs1', 23)" onmouseover="showTip(event, 'fs1', 23)" class="i">model</span><span class="k">-&gt;</span><span onmouseout="hideTip(event, 'fs1', 24)" onmouseover="showTip(event, 'fs1', 24)" class="t">bool</span>
@@ -198,29 +198,29 @@
 </table>
 
 <div class="tip" id="fs1"></div>
-<div class="tip" id="fs2">namespace Elmish.React</div>
-<div class="tip" id="fs3">namespace System</div>
-<div class="tip" id="fs4">namespace Fable</div>
-<div class="tip" id="fs5">namespace Fable.Import</div>
-<div class="tip" id="fs6">module React<br /><br />from Fable.Import</div>
-<div class="tip" id="fs7">namespace Fable.Helpers</div>
-<div class="tip" id="fs8">module React<br /><br />from Fable.Helpers</div>
+<div class="tip" id="fs2">namespace System</div>
+<div class="tip" id="fs3">namespace Fable</div>
+<div class="tip" id="fs4">namespace Fable.Import</div>
+<div class="tip" id="fs5">module React<br /><br />from Fable.Import</div>
+<div class="tip" id="fs6">namespace Fable.Helpers</div>
+<div class="tip" id="fs7">module React<br /><br />from Fable.Helpers</div>
+<div class="tip" id="fs8">namespace Fable.Core</div>
 <div class="tip" id="fs9">LazyProps.model: &#39;model</div>
-<div class="tip" id="fs10">Multiple items<br />type LazyView&lt;&#39;model&gt; =<br />&#160;&#160;inherit Component&lt;LazyProps&lt;&#39;model&gt;,obj&gt;<br />&#160;&#160;new : props:LazyProps&lt;&#39;model&gt; -&gt; LazyView&lt;&#39;model&gt;<br />&#160;&#160;override render : unit -&gt; ReactElement<br />&#160;&#160;override shouldComponentUpdate : nextProps:LazyProps&lt;&#39;model&gt; * _nextState:obj -&gt; bool<br /><br />Full name: Elmish.React.Components.LazyView&lt;_&gt;<br /><br />--------------------<br />new : props:LazyProps&lt;&#39;model&gt; -&gt; Components.LazyView&lt;&#39;model&gt;<br /><br />--------------------<br />type LazyView&lt;&#39;model&gt; =<br />&#160;&#160;inherit Component&lt;LazyProps&lt;&#39;model&gt;,obj&gt;<br />&#160;&#160;new : props:LazyProps&lt;&#39;model&gt; -&gt; LazyView&lt;&#39;model&gt;<br />&#160;&#160;override render : unit -&gt; ReactElement<br />&#160;&#160;override shouldComponentUpdate : nextProps:LazyProps&lt;&#39;model&gt; * _nextState:obj -&gt; bool<br /><br />Full name: Elmish.React.Components.LazyView&lt;_&gt;<br /><br />--------------------<br />new : props:LazyProps&lt;&#39;model&gt; -&gt; Components.LazyView&lt;&#39;model&gt;</div>
+<div class="tip" id="fs10">Multiple items<br />type LazyView&lt;&#39;model&gt; =<br />&#160;&#160;inherit Component&lt;LazyProps&lt;&#39;model&gt;,obj&gt;<br />&#160;&#160;new : props:LazyProps&lt;&#39;model&gt; -&gt; LazyView&lt;&#39;model&gt;<br />&#160;&#160;override render : unit -&gt; ReactElement<br />&#160;&#160;override shouldComponentUpdate : nextProps:LazyProps&lt;&#39;model&gt; * _nextState:obj -&gt; bool<br /><br />Full name: Elmish.React.Components.LazyView&lt;_&gt;<br /><br />--------------------<br />new : props:LazyProps&lt;&#39;model&gt; -&gt; Components.LazyView&lt;&#39;model&gt;</div>
 
         </div>
         <div class="span3">
-          <img src="https://fable-elmish.github.io/react/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <img src="https://elmish.github.io/react/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
           <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
             <li class="nav-header">elmish-react</li>
-            <li><a href="https://github.com/fable-elmish/react">Source Code on GitHub</a></li>
+            <li><a href="https://github.com/elmish/react">Source Code on GitHub</a></li>
             <li class="nav-header">Quick start</li>
-            <li><a href="https://fable-elmish.github.io/react/browser.html">Browser SPA</a></li>
-            <li><a href="https://fable-elmish.github.io/react/native.html">Native App</a></li>
+            <li><a href="https://elmish.github.io/react/browser.html">Browser SPA</a></li>
+            <li><a href="https://elmish.github.io/react/native.html">Native App</a></li>
             <li class="nav-header">Modules</li>
-            <li><a href="https://fable-elmish.github.io/react/common.html">Common</a></li>
-            <li><a href="https://fable-elmish.github.io/react/react.html">React</a></li>
-            <li><a href="https://fable-elmish.github.io/react/react-native.html">ReactNative</a></li>
+            <li><a href="https://elmish.github.io/react/common.html">Common</a></li>
+            <li><a href="https://elmish.github.io/react/react.html">React</a></li>
+            <li><a href="https://elmish.github.io/react/react-native.html">ReactNative</a></li>
           </ul>
         </div>
       </div>
