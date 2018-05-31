@@ -1,4 +1,4 @@
-Elmish-React: React extensions for [elmish](https://github.com/fable-compiler/elmish) applications.
+Elmish-React: React extensions for [elmish](https://github.com/elmish/elmish) applications.
 =======
 [![Windows Build](https://ci.appveyor.com/api/projects/status/vg3200aksdbvx5me?svg=true)](https://ci.appveyor.com/project/et1975/react) [![Mono/OSX build](https://travis-ci.org/elmish/react.svg?branch=master)](https://travis-ci.org/elmish/react) [![NuGet version](https://badge.fury.io/nu/react.svg)](https://badge.fury.io/nu/react)
 
