@@ -1,3 +1,7 @@
+### 2.0.0-beta-4
+
+* Re-releasing v1 for Fable2
+
 ### 1.0.3
 
 * Add doc xml

@@ -2,11 +2,11 @@ source https://nuget.org/api/v2
 storage: none
 generate_load_scripts: true
 nuget FSharp.Core  redirects:force, content:none
-nuget Fable.Core
-nuget Fable.React
-nuget Fable.React.Native
-nuget Fable.Elmish
-nuget Fable.PowerPack
+nuget Fable.Core prerelease
+nuget Fable.React prerelease
+nuget Fable.React.Native prerelease
+nuget Fable.Elmish prerelease
+nuget Fable.PowerPack prerelease
 
 group Build
 framework: net46

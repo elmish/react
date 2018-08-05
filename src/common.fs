@@ -6,7 +6,7 @@ open Fable.Helpers.React
 open Fable.Core
 open Elmish
 
-type [<Pojo>] LazyProps<'model> = {
+type LazyProps<'model> = {
     model:'model
     render:unit->ReactElement
     equal:'model->'model->bool

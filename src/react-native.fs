@@ -6,7 +6,7 @@ open Fable.Core
 open Elmish
 
 module Components =
-    type [<Pojo>] AppState = {
+    type AppState = {
         render : unit -> ReactElement
         setState : AppState -> unit
     }
