@@ -19,24 +19,45 @@ module Helpers =
 module Program =
     open Fable.Import.Browser
 
+    // TODO: Provide an alternative for browsers that don't support it
+    let private now() = performance.now()
+
+    type private Dispatcher<'Value>(f: 'Value -> unit) =
+        let mutable onHold: 'Value option = None
+        let mutable frameLapse = 0.
+        let mutable lastUpdate = now()
+        let rec loop t1 t2: unit =
+            if t1 > 0. then
+                frameLapse <- t2 - t1
+            match onHold with
+            | None -> ()
+            | Some v -> onHold <- None; f v
+            window.requestAnimationFrame(FrameRequestCallback(loop t2)) |> ignore
+        do loop 0. frameLapse
+
+        member __.Dispatch(v) =
+            let currentUpdate = now()
+            match onHold with
+            | Some _ -> onHold <- Some v
+            | None ->
+                if frameLapse > 0. && frameLapse > currentUpdate - lastUpdate
+                then onHold <- Some v
+                else f v
+            lastUpdate <- currentUpdate
+
     /// Setup rendering of root React component inside html element identified by placeholderId
     let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
-        let mutable lastRequest = None
-        let setState model dispatch =
-            match lastRequest with
-            | Some r -> window.cancelAnimationFrame r
-            | _ -> ()
+        let el = document.getElementById(placeholderId)
 
-            lastRequest <- Some (window.requestAnimationFrame (fun _ ->
-                Fable.Import.ReactDom.render(
-                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
-                    document.getElementById(placeholderId)
-                )))
+        let dispatcher = Dispatcher(fun (model, dispatch) ->
+            Fable.Import.ReactDom.render(
+                lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
+                el
+            ))
 
-        { program with setState = setState }
+        { program with setState = fun m d -> dispatcher.Dispatch(m, d) }
 
-    /// `withReact` uses `requestAnimationFrame` to optimize rendering in scenarios with updates at a higher rate than 60FPS, but this makes the cursor jump to the end in `input` elements.
-    /// This function works around the glitch if you don't need the optimization (see https://github.com/elmish/react/issues/12).
+    [<Obsolete("Please use `withReact`")>]
     let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         let setState model dispatch =
             Fable.Import.ReactDom.render(
