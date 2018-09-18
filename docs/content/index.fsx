@@ -73,3 +73,10 @@ lazyView3 view3 model1 model2 dispatch
 
 (** Elmish-React will skip calling the `view3` for as long as both `model1` and `model2` remain unmodified.
 *)
+
+(**
+## Fable-React
+
+Check the [Fable-React documentation](https://github.com/fable-compiler/fable-react/blob/master/README.md) for more information on how to do Server Side Rendering or use third-party React components.
+*)
+
