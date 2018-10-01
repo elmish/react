@@ -1,3 +1,6 @@
+### 2.0.0
+* Release stable for Fable2
+
 ### 2.0.0-beta-4
 
 * Re-releasing v1 for Fable2
