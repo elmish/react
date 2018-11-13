@@ -1,3 +1,7 @@
+### 2.1.0
+
+* Rework internal implementation to help HMR support
+
 ### 2.0.0
 * Release stable for Fable2
 
