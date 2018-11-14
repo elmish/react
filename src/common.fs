@@ -15,7 +15,8 @@ type LazyProps<'model> = {
 module Components =
     open Fable.Core.JsInterop
 
-    let internal createLazyView (displayName: string): ComponentClass<LazyProps<'model>> =
+    let internal createLazyView<'model,'msg> (displayName: string)
+                            : (string * 'model * 'msg Dispatch) -> ReactElement =
         importMember "./util.js"
 
     type LazyView<'model>(props) =
@@ -32,42 +33,24 @@ module Common =
     /// Build a React component that avoids rendering the view unless the model has changed.
     /// Store the result of applying the first argument and use it in your render function. Example:
     /// ```
-    ///     let hello = lazyViewBuilder "Hello"
-    ///     let render model =
-    ///        hello equal view state
-    /// ```
-    /// * displayName: name to be displayed in React dev tools
-    /// * equal: function to compare the previous and the new states
-    /// * view: function to render the model
-    /// * state: new state to render
-    let lazyViewBuilder (displayName: string) =
-        let com = Components.createLazyView displayName
-        fun (equal:'model->'model->bool) (view:'model->ReactElement) (state:'model) ->
-            from com { render = fun () -> view state
-                       equal = equal
-                       model = state } []
-
-    /// Build a React component that avoids rendering the view unless the model has changed.
-    /// Store the result of applying the first argument and use it in your render function. Example:
-    /// ```
-    ///     let hello = lazyView2Builder "Hello"
-    ///     let render model =
-    ///        hello equal view state dispatch
+    ///   let helloFn =
+    ///      lazyViewBuilderWith "Hello" equal view
+    ///
+    ///   let render model dispatch =
+    ///      helloFn "myKey" model dispatch
     /// ```
     /// * displayName: name to be displayed in React dev tools
     /// * equal: function to compare the previous and the new states
     /// * view: function to render the model using the dispatch
+    /// * key: a unique key if the element is rendered in a list
     /// * state: new state to render
     /// * dispatch: dispatch function
-    let lazyView2Builder (displayName: string) =
-        let com = Components.createLazyView displayName
-        fun (equal:'model->'model->bool)
-             (view:'model->'msg Dispatch->ReactElement)
-             (state:'model)
-             (dispatch:'msg Dispatch) ->
-            from com { render = fun () -> view state dispatch
-                       equal = equal
-                       model = state } []
+    let lazyViewBuilderWith (displayName: string) (equal:'model->'model->bool) (view:'model->'msg Dispatch->ReactElement) =
+        let view = Components.createLazyView displayName
+        fun (key: string)
+            (state:'model)
+            (dispatch:'msg Dispatch) ->
+            view (key, state, dispatch)
 
     /// Avoid rendering the view unless the model has changed.
     /// * equal: function to compare the previous and the new states

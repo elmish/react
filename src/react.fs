@@ -57,13 +57,13 @@ module Program =
 
     /// Setup rendering of root React component inside html element identified by placeholderId
     let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
-        Internal.withReactUsing (lazyView2Builder "ElmishRoot") placeholderId program
+        Internal.withReactUsing lazyView2With placeholderId program
 
     /// `withReact` uses `requestAnimationFrame` to optimize rendering in scenarios with updates at a higher rate than 60FPS, but this makes the cursor jump to the end in `input` elements.
     /// This function works around the glitch if you don't need the optimization (see https://github.com/elmish/react/issues/12).
     let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
-        Internal.withReactUnoptimizedUsing (lazyView2Builder "ElmishRoot") placeholderId program
+        Internal.withReactUnoptimizedUsing lazyView2With placeholderId program
 
     /// Setup rendering of root React component inside html element identified by placeholderId using React.hydrate
     let withReactHydrate placeholderId (program:Elmish.Program<_,_,_,_>) =
-        Internal.withReactHydrateUsing (lazyView2Builder "ElmishRoot") placeholderId program
+        Internal.withReactHydrateUsing lazyView2With placeholderId program

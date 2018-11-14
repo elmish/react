@@ -1,17 +1,17 @@
 import * as React from "react";
 
-export function createLazyView(displayName) {
+export function createLazyView(displayName, areEqual, render) {
     const LazyView = class extends React.Component {
         constructor(props) {
             super(props);
         }
         shouldComponentUpdate(nextProps, _nextState) {
-            return !this.props.equal(this.props.model, nextProps.model);
+            return !areEqual(this.props.model, nextProps.model);
         }
         render() {
-            return this.props.render();
+            return render(this.props.state, this.props.dispatch);
         }
     };
     LazyView.displayName = displayName || "LazyView";
-    return LazyView;
+    return ([key, model, dispatch]) => React.createElement(LazyView, { key, model, dispatch });
 }
