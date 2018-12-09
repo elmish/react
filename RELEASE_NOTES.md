@@ -1,3 +1,7 @@
+### 3.0.0-beta-1
+
+* Elmish 3.0 compat
+
 ### 2.2.0
 
 * Fix `withReactNative` for Fable 2

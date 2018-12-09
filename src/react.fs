@@ -1,17 +1,12 @@
 namespace Elmish.React
 
-open System
-open Fable.Import.React
-open Fable.Core
-open Fable.Helpers.React
-
 [<AutoOpen>]
 module Helpers =
     open Fable.Helpers.React.Props
     open Fable.Core.JsInterop
 
     /// `Ref` callback that sets the value of an input textbox after DOM element is created.
-    /// Can be used override input box value.
+    /// Can be used instead of `DefaultValue` and `Value` props to override input box value.
     let inline valueOrDefault value =
         Ref <| (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
 

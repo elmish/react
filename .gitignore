@@ -34,3 +34,4 @@ Directory.Build.props
 docs/output
 temp
 paket-files
+.ionide
