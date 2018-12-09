@@ -5,8 +5,7 @@ nuget FSharp.Core  redirects:force, content:none
 nuget Fable.Core
 nuget Fable.React
 nuget Fable.React.Native prerelease
-nuget Fable.Elmish
-nuget Fable.PowerPack
+nuget Fable.Elmish 3.0.0-beta-2 beta
 
 group Build
 framework: net46

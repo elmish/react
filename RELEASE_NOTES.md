@@ -1,3 +1,7 @@
+### 3.0.0-beta-1
+
+* Elmish 3.0 compat
+
 ### 2.1.0
 
 * Rework internal implementation to help HMR support

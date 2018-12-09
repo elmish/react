@@ -1,6 +1,5 @@
 namespace Elmish.ReactNative
 
-open System
 open Fable.Import.React
 open Fable.Core
 open Elmish
@@ -38,7 +37,6 @@ type AppRegistry =
 
 [<RequireQualifiedAccess>]
 module Program =
-    open Fable.Core.JsInterop
     open Elmish.React
     open Components
 
