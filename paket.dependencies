@@ -2,7 +2,7 @@ source https://nuget.org/api/v2
 storage: none
 generate_load_scripts: true
 nuget FSharp.Core  redirects:force, content:none
-nuget Fable.Core
+nuget Fable.Core prerelease
 nuget Fable.React
 nuget Fable.React.Native prerelease
 nuget Fable.Elmish 3.0.0-beta-2 beta

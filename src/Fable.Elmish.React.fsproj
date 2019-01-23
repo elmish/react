@@ -10,5 +10,8 @@
   <ItemGroup>
     <Content Include="*.fsproj; *.fs" PackagePath="fable\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\fable-react\src\Fable.React\Fable.React.fsproj" />
+  </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
