@@ -1,3 +1,7 @@
+### 2.2.0
+
+* Fix `withReactNative` for Fable 2
+
 ### 2.1.0
 
 * Rework internal implementation to help HMR support
