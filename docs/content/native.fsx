@@ -2,7 +2,6 @@
 #I "../../src/bin/Debug/netstandard1.6"
 #I "../../.paket/load/netstandard2.0"
 #r "Fable.React.dll"
-#r "Fable.React.Native.dll"
 #r "Fable.Elmish.dll"
 #r "Fable.Elmish.React.dll"
 
@@ -45,10 +44,10 @@ let button label onPress =
             [ Color "#FFFFFF"
               TextAlign TextAlignment.Center
               Margin 5.
-              FontSize 15. ]] 
+              FontSize 15. ]]
           label
-    |> touchableHighlightWithChild 
-        [ TouchableHighlightProperties.Style 
+    |> touchableHighlightWithChild
+        [ TouchableHighlightProperties.Style
             [ BackgroundColor "#428bca"
               BorderRadius 4.
               Margin 5. ]
@@ -57,7 +56,7 @@ let button label onPress =
 
 let view count (dispatch:Dispatch<Msg>) =
     let onClick msg =
-      fun () -> msg |> dispatch 
+      fun () -> msg |> dispatch
 
     // construct RN view
     view [ ViewProperties.Style
