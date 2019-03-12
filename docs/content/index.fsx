@@ -5,9 +5,9 @@
 #r "Fable.Elmish.dll"
 #r "Fable.Elmish.React.dll"
 
-let view1 model : Fable.Import.React.ReactElement = failwith "not implemented"
-let view2 model (dispatch:Elmish.Dispatch<'msg>) : Fable.Import.React.ReactElement = failwith "not implemented"
-let view3 model1 model2 (dispatch:Elmish.Dispatch<'msg>) : Fable.Import.React.ReactElement = failwith "not implemented"
+let view1 model : Fable.React.ReactElement = failwith "not implemented"
+let view2 model (dispatch:Elmish.Dispatch<'msg>) : Fable.React.ReactElement = failwith "not implemented"
+let view3 model1 model2 (dispatch:Elmish.Dispatch<'msg>) : Fable.React.ReactElement = failwith "not implemented"
 
 let model = Some ""
 let model1 = Some 1

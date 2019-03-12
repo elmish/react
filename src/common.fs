@@ -1,7 +1,6 @@
 namespace Elmish.React
 
-open Fable.Import.React
-open Fable.Helpers.React
+open Fable.React
 open Elmish
 
 type LazyProps<'model> = {

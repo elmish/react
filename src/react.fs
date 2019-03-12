@@ -2,7 +2,7 @@ namespace Elmish.React
 
 [<AutoOpen>]
 module Helpers =
-    open Fable.Helpers.React.Props
+    open Fable.React.Props
     open Fable.Core.JsInterop
 
     /// `Ref` callback that sets the value of an input textbox after DOM element is created.
@@ -15,7 +15,7 @@ module Program =
 
     module Internal =
 
-        open Fable.Import.Browser
+        open Browser
 
         let withReactBatchedUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
             let mutable lastRequest = None
@@ -25,7 +25,7 @@ module Program =
                 | _ -> ()
 
                 lastRequest <- Some (window.requestAnimationFrame (fun _ ->
-                    Fable.Import.ReactDom.render(
+                    Fable.ReactDom.render(
                         lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
                         document.getElementById(placeholderId)
                     )))
@@ -34,7 +34,7 @@ module Program =
 
         let withReactSynchronousUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
             let setState model dispatch =
-                Fable.Import.ReactDom.render(
+                Fable.ReactDom.render(
                     lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
                     document.getElementById(placeholderId)
                 )
@@ -43,7 +43,7 @@ module Program =
 
         let withReactHydrateUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
             let setState model dispatch =
-                Fable.Import.ReactDom.hydrate(
+                Fable.ReactDom.hydrate(
                     lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
                     document.getElementById(placeholderId)
                 )

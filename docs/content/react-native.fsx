@@ -11,12 +11,12 @@
 namespace Elmish.ReactNative
 
 open System
-open Fable.Import.React
+open Fable.React
 open Fable.Core
 open Elmish
 
 module Components =
-    type [<Pojo>] AppState = {
+    type AppState = {
         render : unit -> ReactElement
         setState : AppState -> unit
     }
@@ -43,7 +43,7 @@ module Components =
 
 [<Import("AppRegistry","react-native")>]
 type AppRegistry =
-    static member registerComponent(appKey:string, getComponentFunc:unit->ComponentClass<_>) : unit =
+    static member registerComponent(appKey:string, getComponentFunc:unit->ReactElementType<_>) : unit =
         failwith "JS only"
 
 [<RequireQualifiedAccess>]
