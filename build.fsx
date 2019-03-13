@@ -113,7 +113,6 @@ let copyFiles() =
 #I ".paket/load/netstandard2.0"
 #I "../../.paket/load/netstandard2.0"
 #I "../../src/bin/Debug/netstandard2.0"
-#load "Fable.React.Native.fsx"
 #load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 

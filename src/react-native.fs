@@ -1,6 +1,6 @@
 namespace Elmish.ReactNative
 
-open Fable.Import.React
+open Fable.React
 open Fable.Core
 open Elmish
 
@@ -22,7 +22,7 @@ module Components =
             | _ -> failwith "was Elmish.ReactNative.Program.withReactNative called?"
 
         override this.componentDidMount() =
-            appState <- Some { appState.Value with setState = this.setState }
+            appState <- Some { appState.Value with setState = fun s -> this.setState(fun _ _ -> s) }
 
         override this.componentWillUnmount() =
             appState <- Some { appState.Value with setState = ignore; render = this.state.render }
@@ -32,7 +32,7 @@ module Components =
 
 [<Import("AppRegistry","react-native")>]
 type AppRegistry =
-    static member registerComponent(appKey:string, getComponentFunc:unit->ComponentClass<_>) : unit =
+    static member registerComponent(appKey:string, getComponentFunc:unit->ReactElementType<_>) : unit =
         failwith "JS only"
 
 [<RequireQualifiedAccess>]

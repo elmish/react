@@ -2,7 +2,6 @@
 #I ".paket/load/netstandard2.0"
 #I "../../.paket/load/netstandard2.0"
 #I "../../src/bin/Debug/netstandard2.0"
-#load "Fable.React.Native.fsx"
 #load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 
@@ -11,12 +10,11 @@
 namespace Elmish.React
 
 open System
-open Fable.Import.React
-open Fable.Helpers.React
+open Fable.React
 open Fable.Core
 open Elmish
 
-type [<Pojo>] LazyProps<'model> = {
+type LazyProps<'model> = {
     model:'model
     render:unit->ReactElement
     equal:'model->'model->bool

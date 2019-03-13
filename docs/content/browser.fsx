@@ -37,8 +37,8 @@ Let's open React bindings and define our view using them:
 
 *)
 
-open Fable.Helpers.React.Props
-module R = Fable.Helpers.React
+open Fable.React.Props
+module R = Fable.React
 
 let view model dispatch =
 

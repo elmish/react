@@ -2,7 +2,6 @@
 #I ".paket/load/netstandard2.0"
 #I "../../.paket/load/netstandard2.0"
 #I "../../src/bin/Debug/netstandard2.0"
-#load "Fable.React.Native.fsx"
 #load "Fable.Elmish.fsx"
 #r "Fable.Elmish.React.dll"
 
@@ -11,13 +10,12 @@
 namespace Elmish.React
 
 open System
-open Fable.Import.React
+open Fable.React
 open Fable.Core
-open Fable.Helpers.React
 
 [<AutoOpen>]
 module Helpers =
-    open Fable.Helpers.React.Props
+    open Fable.React.Props
     open Fable.Core.JsInterop
 
     /// `Ref` callback that sets the value of an input textbox after DOM element is created.
@@ -27,7 +25,7 @@ module Helpers =
 
 [<RequireQualifiedAccess>]
 module Program =
-    open Fable.Import.Browser
+    open Browser
 
     /// Setup rendering of root React component inside html element identified by placeholderId
     let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
@@ -38,7 +36,7 @@ module Program =
             | _ -> ()
 
             lastRequest <- Some (window.requestAnimationFrame (fun _ ->
-                Fable.Import.ReactDom.render(
+                Fable.ReactDom.render(
                     lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
                     document.getElementById(placeholderId)
                 )))
@@ -49,7 +47,7 @@ module Program =
     /// This function works around the glitch if you don't need the optimization (see https://github.com/elmish/react/issues/12).
     let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         let setState model dispatch =
-            Fable.Import.ReactDom.render(
+            Fable.ReactDom.render(
                 lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
                 document.getElementById(placeholderId)
             )
@@ -59,7 +57,7 @@ module Program =
     /// Setup rendering of root React component inside html element identified by placeholderId using React.hydrate
     let withReactHydrate placeholderId (program:Elmish.Program<_,_,_,_>) =
         let setState model dispatch =
-            Fable.Import.ReactDom.hydrate(
+            Fable.ReactDom.hydrate(
                 lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
                 document.getElementById(placeholderId)
             )
