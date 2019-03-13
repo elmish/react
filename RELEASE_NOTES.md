@@ -1,3 +1,7 @@
+### 3.0.0-beta-2
+
+* Fable 3 support courtesy of Alfonso
+
 ### 3.0.0-beta-1
 
 * Elmish 3.0 compat
