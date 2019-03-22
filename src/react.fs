@@ -16,8 +16,9 @@ module Program =
     module Internal =
 
         open Browser
+        open Elmish
 
-        let withReactBatchedUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
+        let withReactBatchedUsing lazyView2With placeholderId (program:Program<_,_,_,_>) =
             let mutable lastRequest = None
             let setState model dispatch =
                 match lastRequest with
@@ -26,29 +27,33 @@ module Program =
 
                 lastRequest <- Some (window.requestAnimationFrame (fun _ ->
                     Fable.ReactDom.render(
-                        lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
-                        document.getElementById(placeholderId)
+                        lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
+                        document.getElementById placeholderId
                     )))
 
-            { program with setState = setState }
+            program
+            |> Program.withSetState setState
 
         let withReactSynchronousUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
             let setState model dispatch =
                 Fable.ReactDom.render(
-                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
-                    document.getElementById(placeholderId)
+                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
+                    document.getElementById placeholderId
                 )
 
-            { program with setState = setState }
+            program
+            |> Program.withSetState setState
 
         let withReactHydrateUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
             let setState model dispatch =
                 Fable.ReactDom.hydrate(
-                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
-                    document.getElementById(placeholderId)
+                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
+                    document.getElementById placeholderId
                 )
 
-            { program with setState = setState }
+            program
+            |> Program.withSetState setState
+
 
     /// Renders React root component inside html element identified by placeholderId.
     /// Uses `requestAnimationFrame` to batch updates to prevent drops in frame rate.

@@ -43,11 +43,13 @@ module Program =
     /// Setup rendering of root ReactNative component
     let withReactNative appKey (program:Program<_,_,_,_>) =
         AppRegistry.registerComponent(appKey, fun () -> unbox JsInterop.jsConstructor<App>)
-        let render m d =
+        let setState m d =
              match appState with
              | Some state ->
-                state.setState { state with render = fun () -> program.view m d }
+                state.setState { state with render = fun () -> (Program.view program) m d }
              | _ ->
-                appState <- Some { render = fun () -> program.view m d
+                appState <- Some { render = fun () -> (Program.view program) m d
                                    setState = ignore }
-        { program with setState = render }
+
+        program
+        |> Program.withSetState setState

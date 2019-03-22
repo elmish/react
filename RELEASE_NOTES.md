@@ -1,3 +1,7 @@
+### 3.0.0-beta-4
+
+* Update to latest Elmish (beta-7) and opaque `Program`
+
 ### 3.0.0-beta-3
 
 * Update to latest Elmish (beta-5) to make `withConsoleTrace` work in latest Fable 3
