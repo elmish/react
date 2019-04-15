@@ -1,3 +1,7 @@
+### 3.0.0-beta-5
+
+* Update to latest Fable.React (beta-009)
+
 ### 3.0.0-beta-4
 
 * Update to latest Elmish (beta-7) and opaque `Program`
