@@ -15,6 +15,7 @@ module Program =
 
     module Internal =
 
+        open Fable.React
         open Browser
         open Elmish
 
@@ -26,7 +27,7 @@ module Program =
                 | _ -> ()
 
                 lastRequest <- Some (window.requestAnimationFrame (fun _ ->
-                    Fable.ReactDom.render(
+                    ReactDom.render(
                         lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
                         document.getElementById placeholderId
                     )))
@@ -36,7 +37,7 @@ module Program =
 
         let withReactSynchronousUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
             let setState model dispatch =
-                Fable.ReactDom.render(
+                ReactDom.render(
                     lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
                     document.getElementById placeholderId
                 )
@@ -46,7 +47,7 @@ module Program =
 
         let withReactHydrateUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
             let setState model dispatch =
-                Fable.ReactDom.hydrate(
+                ReactDom.hydrate(
                     lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
                     document.getElementById placeholderId
                 )
