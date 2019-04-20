@@ -13,6 +13,7 @@ open Fake.Git
 let gitName = "react"
 let gitOwner = "elmish"
 let gitHome = sprintf "https://github.com/%s" gitOwner
+let gitRepo = sprintf "git@github.com:%s/%s" gitOwner gitName
 
 // Filesets
 let projects  =
@@ -168,7 +169,7 @@ Target "WatchDocs" (fun _ ->
 Target "ReleaseDocs" (fun _ ->
     let tempDocsDir = "temp/gh-pages"
     CleanDir tempDocsDir
-    Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
+    Repository.cloneSingleBranch "" gitRepo "gh-pages" tempDocsDir
 
     CopyRecursive "docs/output" tempDocsDir true |> tracefn "%A"
     StageAll tempDocsDir

@@ -9,7 +9,6 @@
 *)
 namespace Elmish.ReactNative
 
-open System
 open Fable.React
 open Fable.Core
 open Elmish
@@ -32,7 +31,7 @@ module Components =
             | _ -> failwith "was Elmish.ReactNative.Program.withReactNative called?"
 
         override this.componentDidMount() =
-            appState <- Some { appState.Value with setState = this.setState }
+            appState <- Some { appState.Value with setState = fun s -> this.setState(fun _ _ -> s) }
 
         override this.componentWillUnmount() =
             appState <- Some { appState.Value with setState = ignore; render = this.state.render }
@@ -47,18 +46,19 @@ type AppRegistry =
 
 [<RequireQualifiedAccess>]
 module Program =
-    open Fable.Core.JsInterop
     open Elmish.React
     open Components
 
     /// Setup rendering of root ReactNative component
     let withReactNative appKey (program:Program<_,_,_,_>) =
-        AppRegistry.registerComponent(appKey, fun () -> unbox typeof<App>)
-        let render m d =
+        AppRegistry.registerComponent(appKey, fun () -> unbox JsInterop.jsConstructor<App>)
+        let setState m d =
              match appState with
              | Some state ->
-                state.setState { state with render = fun () -> program.view m d }
+                state.setState { state with render = fun () -> (Program.view program) m d }
              | _ ->
-                appState <- Some { render = fun () -> program.view m d
+                appState <- Some { render = fun () -> (Program.view program) m d
                                    setState = ignore }
-        { program with setState = render }
+
+        program
+        |> Program.withSetState setState

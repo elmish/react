@@ -9,57 +9,81 @@
 *)
 namespace Elmish.React
 
-open System
-open Fable.React
-open Fable.Core
-
 [<AutoOpen>]
 module Helpers =
     open Fable.React.Props
     open Fable.Core.JsInterop
 
     /// `Ref` callback that sets the value of an input textbox after DOM element is created.
-    /// Can be used override input box value.
+    /// Can be used instead of `DefaultValue` and `Value` props to override input box value.
     let inline valueOrDefault value =
         Ref <| (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
 
 [<RequireQualifiedAccess>]
 module Program =
-    open Browser
 
-    /// Setup rendering of root React component inside html element identified by placeholderId
+    module Internal =
+
+        open Fable.React
+        open Browser
+        open Elmish
+
+        let withReactBatchedUsing lazyView2With placeholderId (program:Program<_,_,_,_>) =
+            let mutable lastRequest = None
+            let setState model dispatch =
+                match lastRequest with
+                | Some r -> window.cancelAnimationFrame r
+                | _ -> ()
+
+                lastRequest <- Some (window.requestAnimationFrame (fun _ ->
+                    ReactDom.render(
+                        lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
+                        document.getElementById placeholderId
+                    )))
+
+            program
+            |> Program.withSetState setState
+
+        let withReactSynchronousUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
+            let setState model dispatch =
+                ReactDom.render(
+                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
+                    document.getElementById placeholderId
+                )
+
+            program
+            |> Program.withSetState setState
+
+        let withReactHydrateUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
+            let setState model dispatch =
+                ReactDom.hydrate(
+                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
+                    document.getElementById placeholderId
+                )
+
+            program
+            |> Program.withSetState setState
+
+
+    /// Renders React root component inside html element identified by placeholderId.
+    /// Uses `requestAnimationFrame` to batch updates to prevent drops in frame rate.
+    /// NOTE: This may have unexpected effects in React controlled inputs, see https://github.com/elmish/react/issues/12
+    let withReactBatched placeholderId (program:Elmish.Program<_,_,_,_>) =
+        Internal.withReactBatchedUsing lazyView2With placeholderId program
+
+    /// Renders React root component inside html element identified by placeholderId.
+    /// New renders are triggered immediately after an update.
+    let withReactSynchronous placeholderId (program:Elmish.Program<_,_,_,_>) =
+        Internal.withReactSynchronousUsing lazyView2With placeholderId program
+
+    [<System.Obsolete("Use withReactBatched")>]
     let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
-        let mutable lastRequest = None
-        let setState model dispatch =
-            match lastRequest with
-            | Some r -> window.cancelAnimationFrame r
-            | _ -> ()
+        Internal.withReactBatchedUsing lazyView2With placeholderId program
 
-            lastRequest <- Some (window.requestAnimationFrame (fun _ ->
-                Fable.ReactDom.render(
-                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
-                    document.getElementById(placeholderId)
-                )))
-
-        { program with setState = setState }
-
-    /// `withReact` uses `requestAnimationFrame` to optimize rendering in scenarios with updates at a higher rate than 60FPS, but this makes the cursor jump to the end in `input` elements.
-    /// This function works around the glitch if you don't need the optimization (see https://github.com/elmish/react/issues/12).
+    [<System.Obsolete("Use withReactSynchronous")>]
     let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
-        let setState model dispatch =
-            Fable.ReactDom.render(
-                lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
-                document.getElementById(placeholderId)
-            )
+        Internal.withReactSynchronousUsing lazyView2With placeholderId program
 
-        { program with setState = setState }
-
-    /// Setup rendering of root React component inside html element identified by placeholderId using React.hydrate
+    /// Renders React root component inside html element identified by placeholderId using `React.hydrate`.
     let withReactHydrate placeholderId (program:Elmish.Program<_,_,_,_>) =
-        let setState model dispatch =
-            Fable.ReactDom.hydrate(
-                lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) program.view model dispatch,
-                document.getElementById(placeholderId)
-            )
-
-        { program with setState = setState }
+        Internal.withReactHydrateUsing lazyView2With placeholderId program

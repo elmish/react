@@ -9,9 +9,7 @@
 *)
 namespace Elmish.React
 
-open System
 open Fable.React
-open Fable.Core
 open Elmish
 
 type LazyProps<'model> = {

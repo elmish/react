@@ -1,3 +1,7 @@
+### 3.0.1
+
+* Releasing 3.0
+
 ### 3.0.0-beta-5
 
 * Update to latest Fable.React (beta-009)
