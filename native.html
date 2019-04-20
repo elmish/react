@@ -54,15 +54,15 @@
 <span class="l">8: </span>
 <span class="l">9: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">Elmish</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span class="i">Elmish</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="f">init</span> () <span class="o">=</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="f">init</span> () <span class="o">=</span>
   <span class="n">0</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="f">update</span> (<span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="i">msg</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 10)" onmouseover="showTip(event, 'fs3', 10)" class="t">Msg</span>) <span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="i">count</span> <span class="o">=</span>
-  <span class="k">match</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="i">msg</span> <span class="k">with</span>
-  | <span onmouseout="hideTip(event, 'fs4', 13)" onmouseover="showTip(event, 'fs4', 13)" class="p">Increment</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">count</span> <span class="o">+</span> <span class="n">1</span>
-  | <span onmouseout="hideTip(event, 'fs5', 15)" onmouseover="showTip(event, 'fs5', 15)" class="p">Decrement</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="i">count</span> <span class="o">-</span> <span class="n">1</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="f">update</span> (<span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="i">msg</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="t">Msg</span>) <span onmouseout="hideTip(event, 'fs9', 10)" onmouseover="showTip(event, 'fs9', 10)" class="i">count</span> <span class="o">=</span>
+  <span class="k">match</span> <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">msg</span> <span class="k">with</span>
+  | <span onmouseout="hideTip(event, 'fs4', 12)" onmouseover="showTip(event, 'fs4', 12)" class="p">Increment</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">count</span> <span class="o">+</span> <span class="n">1</span>
+  | <span onmouseout="hideTip(event, 'fs5', 14)" onmouseover="showTip(event, 'fs5', 14)" class="p">Decrement</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="i">count</span> <span class="o">-</span> <span class="n">1</span>
 </code></pre></td>
 </tr>
 </table>
@@ -105,28 +105,28 @@
 <span class="l">35: </span>
 <span class="l">36: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span class="i">Fable</span><span class="o">.</span><span class="i">Import</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="i">ReactNative</span>
-<span class="k">open</span> <span class="i">Fable</span><span class="o">.</span><span class="i">Helpers</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="i">ReactNative</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span class="i">Fable</span><span class="o">.</span><span class="i">Import</span><span class="o">.</span><span class="i">ReactNative</span>
+<span class="k">open</span> <span class="i">Fable</span><span class="o">.</span><span class="i">Helpers</span><span class="o">.</span><span class="i">ReactNative</span>
 
 <span class="c">// define our button element</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="f">button</span> <span onmouseout="hideTip(event, 'fs13', 20)" onmouseover="showTip(event, 'fs13', 20)" class="i">label</span> <span onmouseout="hideTip(event, 'fs14', 21)" onmouseover="showTip(event, 'fs14', 21)" class="i">onPress</span> <span class="o">=</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="f">button</span> <span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="i">label</span> <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="i">onPress</span> <span class="o">=</span>
     <span class="i">text</span> [ <span class="i">TextProperties</span><span class="o">.</span><span class="i">Style</span>
             [ <span class="i">Color</span> <span class="s">&quot;#FFFFFF&quot;</span>
               <span class="i">TextAlign</span> <span class="i">TextAlignment</span><span class="o">.</span><span class="i">Center</span>
               <span class="i">Margin</span> <span class="n">5.</span>
-              <span class="i">FontSize</span> <span class="n">15.</span> ]] 
-          <span onmouseout="hideTip(event, 'fs13', 22)" onmouseover="showTip(event, 'fs13', 22)" class="i">label</span>
-    <span class="o">|&gt;</span> <span class="i">touchableHighlightWithChild</span> 
-        [ <span class="i">TouchableHighlightProperties</span><span class="o">.</span><span class="i">Style</span> 
+              <span class="i">FontSize</span> <span class="n">15.</span> ]]
+          <span onmouseout="hideTip(event, 'fs11', 19)" onmouseover="showTip(event, 'fs11', 19)" class="i">label</span>
+    <span class="o">|&gt;</span> <span class="i">touchableHighlightWithChild</span>
+        [ <span class="i">TouchableHighlightProperties</span><span class="o">.</span><span class="i">Style</span>
             [ <span class="i">BackgroundColor</span> <span class="s">&quot;#428bca&quot;</span>
               <span class="i">BorderRadius</span> <span class="n">4.</span>
               <span class="i">Margin</span> <span class="n">5.</span> ]
           <span class="i">TouchableHighlightProperties</span><span class="o">.</span><span class="i">UnderlayColor</span> <span class="s">&quot;#5499C4&quot;</span>
-          <span class="i">OnPress</span> <span onmouseout="hideTip(event, 'fs14', 23)" onmouseover="showTip(event, 'fs14', 23)" class="i">onPress</span> ]
+          <span class="i">OnPress</span> <span onmouseout="hideTip(event, 'fs12', 20)" onmouseover="showTip(event, 'fs12', 20)" class="i">onPress</span> ]
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 24)" onmouseover="showTip(event, 'fs15', 24)" class="f">view</span> <span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="i">count</span> (<span onmouseout="hideTip(event, 'fs17', 26)" onmouseover="showTip(event, 'fs17', 26)" class="f">dispatch</span><span class="o">:</span><span class="i">Dispatch</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs3', 27)" onmouseover="showTip(event, 'fs3', 27)" class="i">Msg</span><span class="o">&gt;</span>) <span class="o">=</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 28)" onmouseover="showTip(event, 'fs18', 28)" class="f">onClick</span> <span onmouseout="hideTip(event, 'fs19', 29)" onmouseover="showTip(event, 'fs19', 29)" class="i">msg</span> <span class="o">=</span>
-      <span class="k">fun</span> () <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="i">msg</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs17', 31)" onmouseover="showTip(event, 'fs17', 31)" class="f">dispatch</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="f">view</span> <span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="i">count</span> (<span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="f">dispatch</span><span class="o">:</span><span class="i">Dispatch</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs3', 24)" onmouseover="showTip(event, 'fs3', 24)" class="i">Msg</span><span class="o">&gt;</span>) <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="f">onClick</span> <span onmouseout="hideTip(event, 'fs17', 26)" onmouseover="showTip(event, 'fs17', 26)" class="i">msg</span> <span class="o">=</span>
+      <span class="k">fun</span> () <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs17', 27)" onmouseover="showTip(event, 'fs17', 27)" class="i">msg</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 28)" onmouseover="showTip(event, 'fs15', 28)" class="f">dispatch</span>
 
     <span class="c">// construct RN view</span>
     <span class="i">view</span> [ <span class="i">ViewProperties</span><span class="o">.</span><span class="i">Style</span>
@@ -138,9 +138,9 @@
               <span class="i">JustifyContent</span> <span class="i">JustifyContent</span><span class="o">.</span><span class="i">Center</span>
               <span class="i">Flex</span> <span class="n">1.</span>
               <span class="i">BackgroundColor</span> <span class="s">&quot;#615A5B&quot;</span> ]]
-         [ <span onmouseout="hideTip(event, 'fs12', 32)" onmouseover="showTip(event, 'fs12', 32)" class="i">button</span> <span class="s">&quot;-&quot;</span> (<span onmouseout="hideTip(event, 'fs18', 33)" onmouseover="showTip(event, 'fs18', 33)" class="i">onClick</span> <span onmouseout="hideTip(event, 'fs5', 34)" onmouseover="showTip(event, 'fs5', 34)" class="i">Decrement</span>)
-           <span class="i">text</span> [] (<span onmouseout="hideTip(event, 'fs20', 35)" onmouseover="showTip(event, 'fs20', 35)" class="i">string</span> <span onmouseout="hideTip(event, 'fs16', 36)" onmouseover="showTip(event, 'fs16', 36)" class="i">count</span>)
-           <span onmouseout="hideTip(event, 'fs12', 37)" onmouseover="showTip(event, 'fs12', 37)" class="i">button</span> <span class="s">&quot;+&quot;</span> (<span onmouseout="hideTip(event, 'fs18', 38)" onmouseover="showTip(event, 'fs18', 38)" class="i">onClick</span> <span onmouseout="hideTip(event, 'fs4', 39)" onmouseover="showTip(event, 'fs4', 39)" class="i">Increment</span>) ]
+         [ <span onmouseout="hideTip(event, 'fs10', 29)" onmouseover="showTip(event, 'fs10', 29)" class="i">button</span> <span class="s">&quot;-&quot;</span> (<span onmouseout="hideTip(event, 'fs16', 30)" onmouseover="showTip(event, 'fs16', 30)" class="i">onClick</span> <span onmouseout="hideTip(event, 'fs5', 31)" onmouseover="showTip(event, 'fs5', 31)" class="i">Decrement</span>)
+           <span class="i">text</span> [] (<span onmouseout="hideTip(event, 'fs18', 32)" onmouseover="showTip(event, 'fs18', 32)" class="i">string</span> <span onmouseout="hideTip(event, 'fs14', 33)" onmouseover="showTip(event, 'fs14', 33)" class="i">count</span>)
+           <span onmouseout="hideTip(event, 'fs10', 34)" onmouseover="showTip(event, 'fs10', 34)" class="i">button</span> <span class="s">&quot;+&quot;</span> (<span onmouseout="hideTip(event, 'fs16', 35)" onmouseover="showTip(event, 'fs16', 35)" class="i">onClick</span> <span onmouseout="hideTip(event, 'fs4', 36)" onmouseover="showTip(event, 'fs4', 36)" class="i">Increment</span>) ]
 </code></pre></td>
 </tr>
 </table>
@@ -152,11 +152,11 @@
 <span class="l">4: </span>
 <span class="l">5: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs6', 40)" onmouseover="showTip(event, 'fs6', 40)" class="i">Elmish</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 41)" onmouseover="showTip(event, 'fs11', 41)" class="i">ReactNative</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span class="i">Elmish</span><span class="o">.</span><span class="i">ReactNative</span>
 
-<span onmouseout="hideTip(event, 'fs21', 42)" onmouseover="showTip(event, 'fs21', 42)" class="i">Program</span><span class="o">.</span><span class="i">mkSimple</span> <span onmouseout="hideTip(event, 'fs7', 43)" onmouseover="showTip(event, 'fs7', 43)" class="i">init</span> <span onmouseout="hideTip(event, 'fs8', 44)" onmouseover="showTip(event, 'fs8', 44)" class="i">update</span> <span onmouseout="hideTip(event, 'fs15', 45)" onmouseover="showTip(event, 'fs15', 45)" class="i">view</span>
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs21', 46)" onmouseover="showTip(event, 'fs21', 46)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 47)" onmouseover="showTip(event, 'fs22', 47)" class="f">withReactNative</span> <span class="s">&quot;counter&quot;</span>
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs21', 48)" onmouseover="showTip(event, 'fs21', 48)" class="i">Program</span><span class="o">.</span><span class="i">run</span>
+<span class="i">Program</span><span class="o">.</span><span class="i">mkSimple</span> <span onmouseout="hideTip(event, 'fs6', 37)" onmouseover="showTip(event, 'fs6', 37)" class="i">init</span> <span onmouseout="hideTip(event, 'fs7', 38)" onmouseover="showTip(event, 'fs7', 38)" class="i">update</span> <span onmouseout="hideTip(event, 'fs13', 39)" onmouseover="showTip(event, 'fs13', 39)" class="i">view</span>
+<span class="o">|&gt;</span> <span class="i">Program</span><span class="o">.</span><span class="i">withReactNative</span> <span class="s">&quot;counter&quot;</span>
+<span class="o">|&gt;</span> <span class="i">Program</span><span class="o">.</span><span class="i">run</span>
 </code></pre></td>
 </tr>
 </table>
@@ -175,23 +175,19 @@ import <span class="o">*</span> <span class="k">as</span> app from <span class="
 <div class="tip" id="fs3">type Msg =<br />&#160;&#160;| Increment<br />&#160;&#160;| Decrement<br /><br />Full name: Native.Msg</div>
 <div class="tip" id="fs4">union case Msg.Increment: Msg</div>
 <div class="tip" id="fs5">union case Msg.Decrement: Msg</div>
-<div class="tip" id="fs6">namespace Elmish</div>
-<div class="tip" id="fs7">val init : unit -&gt; int<br /><br />Full name: Native.init</div>
-<div class="tip" id="fs8">val update : msg:Msg -&gt; count:int -&gt; int<br /><br />Full name: Native.update</div>
-<div class="tip" id="fs9">val msg : Msg</div>
-<div class="tip" id="fs10">val count : int</div>
-<div class="tip" id="fs11">namespace Elmish.ReactNative</div>
-<div class="tip" id="fs12">val button : label:&#39;a -&gt; onPress:&#39;b -&gt; &#39;c<br /><br />Full name: Native.button</div>
-<div class="tip" id="fs13">val label : &#39;a</div>
-<div class="tip" id="fs14">val onPress : &#39;b</div>
-<div class="tip" id="fs15">val view : count:&#39;a -&gt; dispatch:(&#39;b -&gt; &#39;c) -&gt; &#39;d<br /><br />Full name: Native.view</div>
-<div class="tip" id="fs16">val count : &#39;a</div>
-<div class="tip" id="fs17">val dispatch : (&#39;b -&gt; &#39;c)</div>
-<div class="tip" id="fs18">val onClick : (&#39;b -&gt; unit -&gt; &#39;c)</div>
-<div class="tip" id="fs19">val msg : &#39;b</div>
-<div class="tip" id="fs20">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
-<div class="tip" id="fs21">module Program<br /><br />from Elmish.ReactNative</div>
-<div class="tip" id="fs22"></div>
+<div class="tip" id="fs6">val init : unit -&gt; int<br /><br />Full name: Native.init</div>
+<div class="tip" id="fs7">val update : msg:Msg -&gt; count:int -&gt; int<br /><br />Full name: Native.update</div>
+<div class="tip" id="fs8">val msg : Msg</div>
+<div class="tip" id="fs9">val count : int</div>
+<div class="tip" id="fs10">val button : label:&#39;a -&gt; onPress:&#39;b -&gt; &#39;c<br /><br />Full name: Native.button</div>
+<div class="tip" id="fs11">val label : &#39;a</div>
+<div class="tip" id="fs12">val onPress : &#39;b</div>
+<div class="tip" id="fs13">val view : count:&#39;a -&gt; dispatch:(&#39;b -&gt; &#39;c) -&gt; &#39;d<br /><br />Full name: Native.view</div>
+<div class="tip" id="fs14">val count : &#39;a</div>
+<div class="tip" id="fs15">val dispatch : (&#39;b -&gt; &#39;c)</div>
+<div class="tip" id="fs16">val onClick : (&#39;b -&gt; unit -&gt; &#39;c)</div>
+<div class="tip" id="fs17">val msg : &#39;b</div>
+<div class="tip" id="fs18">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
 
         </div>
         <div class="span3">
