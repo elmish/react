@@ -1,24 +1,16 @@
 language: csharp
 
 sudo: false  # use the new container-based Travis infrastructure
-dist: trusty
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - libstdc++-4.9-dev
-      - libunwind8-dev
+dist: xenial
+dotnet: 2.2
 
 before_script:
-  - nvm install 4.4
-  - nvm use 4.4
-  #install yarn globally
-  - npm install -g yarn
+  - nvm install --lts
+  - nvm use --lts
+  - dotnet tool install fake-cli
 
 cache:
   yarn: true
 
 script:
-  - ./build.sh
+  - fake build -t Build
