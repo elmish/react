@@ -78,3 +78,36 @@ module Program =
     /// Renders React root component inside html element identified by placeholderId using `React.hydrate`.
     let withReactHydrate placeholderId (program:Elmish.Program<_,_,_,_>) =
         Internal.withReactHydrateUsing lazyView2With placeholderId program
+
+[<RequireQualifiedAccess>]
+module Component =
+    open Elmish
+    open Fable.React
+    open Fable.Core.JsInterop
+
+    // TODO: Make this compatible with SSR?
+    let mkComponent<'Props, 'State, 'Msg>
+        (displayName: string)
+        (init: 'Props -> 'State)
+        (update: 'Msg -> 'Props -> 'State -> 'State * Cmd<'Msg>)
+        (view: 'Props -> 'State -> ('Msg->unit) -> ReactElement)
+        : (* key: *) string -> 'Props -> ReactElement =
+
+        let renderFn (props: 'Props) =
+            let state = Hooks.useStateLazy(fun () -> init props)
+            let rec dispatch msg =
+                state.update(fun state ->
+                    let model, cmdList = update msg props state
+                    // TODO: Is it OK to invoke the commands with recursive dispatch?
+                    for cmd in cmdList do
+                        cmd dispatch
+                    model)
+            view props state.current dispatch
+
+        renderFn?displayName <- displayName
+        let elemType = ReactElementType.memoWith equalsButFunctions renderFn
+
+        fun key props ->
+            // TODO: Check `key` field is not already in props?
+            props?key <- key
+            ReactElementType.create elemType props []
