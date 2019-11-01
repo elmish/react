@@ -67,14 +67,6 @@ module Program =
     let withReactSynchronous placeholderId (program:Elmish.Program<_,_,_,_>) =
         Internal.withReactSynchronousUsing lazyView2With placeholderId program
 
-    [<System.Obsolete("Use withReactBatched")>]
-    let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
-        Internal.withReactBatchedUsing lazyView2With placeholderId program
-
-    [<System.Obsolete("Use withReactSynchronous")>]
-    let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
-        Internal.withReactSynchronousUsing lazyView2With placeholderId program
-
     /// Renders React root component inside html element identified by placeholderId using `React.hydrate`.
     let withReactHydrate placeholderId (program:Elmish.Program<_,_,_,_>) =
         Internal.withReactHydrateUsing lazyView2With placeholderId program

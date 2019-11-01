@@ -1,3 +1,7 @@
+### 4.0.0-alpha-1
+
+* Support for elmish v4
+
 ### 3.0.1
 
 * Releasing 3.0

@@ -1,8 +1,7 @@
 ﻿(*** hide ***)
-#I ".paket/load/netstandard2.0"
-#I "../../.paket/load/netstandard2.0"
-#I "../../src/bin/Debug/netstandard2.0"
-#load "Fable.Elmish.fsx"
+#I "../../src/bin/Release/netstandard2.0"
+#r "Fable.Core.dll"
+#r "Fable.Elmish.dll"
 #r "Fable.Elmish.React.dll"
 
 (**
@@ -74,14 +73,6 @@ module Program =
     /// Renders React root component inside html element identified by placeholderId.
     /// New renders are triggered immediately after an update.
     let withReactSynchronous placeholderId (program:Elmish.Program<_,_,_,_>) =
-        Internal.withReactSynchronousUsing lazyView2With placeholderId program
-
-    [<System.Obsolete("Use withReactBatched")>]
-    let withReact placeholderId (program:Elmish.Program<_,_,_,_>) =
-        Internal.withReactBatchedUsing lazyView2With placeholderId program
-
-    [<System.Obsolete("Use withReactSynchronous")>]
-    let withReactUnoptimized placeholderId (program:Elmish.Program<_,_,_,_>) =
         Internal.withReactSynchronousUsing lazyView2With placeholderId program
 
     /// Renders React root component inside html element identified by placeholderId using `React.hydrate`.
