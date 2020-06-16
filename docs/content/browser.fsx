@@ -37,15 +37,16 @@ Let's open React bindings and define our view using them:
 
 *)
 
+open Fable.React
 open Fable.React.Props
-module R = Fable.React
+
 
 let view model dispatch =
 
-  R.div []
-      [ R.button [ OnClick (fun _ -> dispatch Decrement) ] [ R.str "-" ]
-        R.div [] [ R.str (sprintf "%A" model) ]
-        R.button [ OnClick (fun _ -> dispatch Increment) ] [ R.str "+" ] ]
+    div []
+        [ button [ OnClick(fun _ -> dispatch Decrement) ] [ str "-" ]
+          div [] [ str (sprintf "%A" model) ]
+          button [ OnClick(fun _ -> dispatch Increment) ] [ str "+" ] ]
 
 (**
 ### Create the program instance
@@ -57,10 +58,10 @@ Now we need to tell React to render our view in the div placeholder we defined i
 by augumenting our program instance and passing the placeholder id:
 *)
 
-open Elmish.React
+open Elmish.HMR
 
 Program.mkSimple init update view
-|> Program.withReact "elmish-app"
+|> Program.withReactBatched "elmish-app"
 |> Program.run
 
 (**
