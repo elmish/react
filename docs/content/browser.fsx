@@ -58,7 +58,7 @@ Now we need to tell React to render our view in the div placeholder we defined i
 by augumenting our program instance and passing the placeholder id:
 *)
 
-open Elmish.HMR
+open Elmish.React
 
 Program.mkSimple init update view
 |> Program.withReactBatched "elmish-app"
