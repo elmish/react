@@ -10,5 +10,9 @@
   <ItemGroup>
     <Content Include="*.fsproj; *.fs" PackagePath="fable\" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.*" />
+    <PackageReference Include="Fable.Elmish" Version="4.0.0-beta-1" />
+    <PackageReference Include="Fable.React" Version="6.*" />
+  </ItemGroup>
 </Project>

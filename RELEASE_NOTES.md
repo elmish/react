@@ -1,4 +1,4 @@
-### 4.0.0-alpha-1
+### 4.0.0-beta-1
 
 * Support for elmish v4
 

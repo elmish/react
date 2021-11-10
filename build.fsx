@@ -1,12 +1,11 @@
 #r "paket:
 storage: packages
+nuget FSharp.Core 4.7
 nuget Fake.IO.FileSystem
 nuget Fake.DotNet.Cli
 nuget Fake.Core.Target
 nuget Fake.Core.ReleaseNotes
 nuget Fake.Tools.Git
-nuget FSharp.Formatting
-nuget FSharp.Formatting.CommandTool
 nuget Fake.DotNet.FSFormatting //"
 #if !FAKE
 #load ".fake/build.fsx/intellisense.fsx"
@@ -33,9 +32,6 @@ let gitRepo = sprintf "git@github.com:%s/%s" gitOwner gitName
 let projects  =
       !! "src/**.fsproj"
 
-
-let withWorkDir = DotNet.Options.withWorkingDirectory
-
 Target.create "Clean" (fun _ ->
     Shell.cleanDir "src/obj"
     Shell.cleanDir "src/bin"
@@ -43,34 +39,30 @@ Target.create "Clean" (fun _ ->
 
 Target.create "Restore" (fun _ ->
     projects
-    |> Seq.iter (fun s ->
-        let dir = Path.GetDirectoryName s
-        DotNet.restore (fun a -> a.WithCommon (withWorkDir dir)) s
-    )
+    |> Seq.iter (Path.GetDirectoryName >> DotNet.restore id)
 )
 
 Target.create "Build" (fun _ ->
     projects
-    |> Seq.iter (fun s ->
-        let dir = Path.GetDirectoryName s
-        DotNet.build (fun a ->
-            a.WithCommon
-                (fun c ->
-                    let c = c |> withWorkDir dir
-                    {c with CustomParams = Some "/p:SourceLinkCreate=true"}))
-            s
-    )
+     |> Seq.iter (Path.GetDirectoryName >> DotNet.build id)
 )
 
 let release = ReleaseNotes.load "RELEASE_NOTES.md"
 
 Target.create "Meta" (fun _ ->
     [ "<Project xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">"
+      "<ItemGroup>"
+      "<None Include=\"../docs/files/img/logo.png\" Pack=\"true\" PackagePath=\"\\\"/>"
+      "<PackageReference Include=\"Microsoft.SourceLink.GitHub\" Version=\"1.0.0\" PrivateAssets=\"All\"/>"
+      "</ItemGroup>"
       "<PropertyGroup>"
+      "<EmbedUntrackedSources>true</EmbedUntrackedSources>"
+      "<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>"
       "<Description>Elmish extensions for writing Fable apps with React and ReactNative</Description>"
       sprintf "<PackageProjectUrl>http://%s.github.io/%s</PackageProjectUrl>" gitOwner gitName
       "<PackageLicenseUrl>https://raw.githubusercontent.com/elmish/react/master/LICENSE.md</PackageLicenseUrl>"
       "<PackageIconUrl>https://raw.githubusercontent.com/elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>"
+      "<PackageIcon>logo.png</PackageIcon>"
       sprintf "<RepositoryUrl>%s/%s</RepositoryUrl>" gitHome gitName
       "<PackageTags>fable;elmish;fsharp;React;React-Native</PackageTags>"
       sprintf "<PackageReleaseNotes>%s</PackageReleaseNotes>" (List.head release.Notes)
@@ -86,19 +78,11 @@ Target.create "Meta" (fun _ ->
 
 Target.create "Package" (fun _ ->
     projects
-    |> Seq.iter (fun s ->
-        let dir = Path.GetDirectoryName s
-        DotNet.pack (fun a ->
-            a.WithCommon (withWorkDir dir)
-        ) s
-    )
+    |> Seq.iter (Path.GetDirectoryName >> DotNet.pack id)
 )
 
 Target.create "PublishNuget" (fun _ ->
-    let exec dir =
-        DotNet.exec (fun a ->
-            a.WithCommon (withWorkDir dir)
-        )
+    let exec dir = DotNet.exec (DotNet.Options.withWorkingDirectory dir)
 
     let args = sprintf "push Fable.Elmish.React.%s.nupkg -s nuget.org -k %s" (string release.SemVer) (Environment.environVar "nugetkey")
     let result = exec "src/bin/Release" "nuget" args
@@ -142,7 +126,7 @@ let generateDocs _ =
                 Source = "docs/content"
                 OutputDirectory = docs_out
                 LayoutRoots = [ "docs/tools/templates"
-                                ".fake/build.fsx/packages/fsharp.formatting/templates" ]
+                                ".fake/build.fsx/packages/FSharp.Formatting/templates" ]
                 ProjectParameters  = ("root", docsHome)::info
                 Template = "docpage.cshtml" } )
 
