@@ -119,15 +119,17 @@ Target.create "Publish" ignore
 
 // Build order
 "Clean"
-  ==> "Meta"
-  ==> "Restore"
-  ==> "Build"
-  ==> "Package"
-  ==> "GenerateDocs"
-  ==> "PublishNuget"
-  ==> "ReleaseDocs"
-  ==> "Publish"
+    ==> "Meta"
+    ==> "Restore"
+    ==> "Build"
+    ==> "Package"
+    ==> "PublishNuget"
+    ==> "Publish"
 
+// Documentation generation is separate from the build
+// because it should be done by the Github workflow
+"GenerateDocs"
+    ==> "ReleaseDocs"
 
 // start build
 Target.runOrDefault "Build"
