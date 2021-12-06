@@ -1,19 +1,25 @@
+(**
+---
+layout: standard
+title: Native App
+toc: false
+---
+**)
+
 (*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../.paket/load/netstandard2.0"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
-#r "Fable.Elmish.React.dll"
+
+#load "./../prelude.fsx"
+#r "nuget: Fable.React.Native"
 
 (**
-A ReactNative app
-=======
 Let's define our model:
 *)
 
 type Model = int
 
-type Msg = Increment | Decrement
+type Msg =
+    | Increment
+    | Decrement
 
 
 (**
@@ -23,45 +29,46 @@ type Msg = Increment | Decrement
 open Elmish
 
 let init () =
-  0
+    0
 
 let update (msg:Msg) count =
-  match msg with
-  | Increment -> count + 1
-  | Decrement -> count - 1
+    match msg with
+    | Increment -> count + 1
+    | Decrement -> count - 1
 
 (**
 ### Rendering views with ReactNative
 Let's open ReactNative bindings and define our view using them:
 
 *)
-open Fable.Import.ReactNative
-open Fable.Helpers.ReactNative
+
+open Fable.ReactNative
+open Fable.ReactNative.Props
 
 // define our button element
 let button label onPress =
     text [ TextProperties.Style
-            [ Color "#FFFFFF"
+            [ TextStyle.Color "#FFFFFF"
               TextAlign TextAlignment.Center
-              Margin 5.
+              Margin (dip 5.)
               FontSize 15. ]]
           label
     |> touchableHighlightWithChild
         [ TouchableHighlightProperties.Style
             [ BackgroundColor "#428bca"
               BorderRadius 4.
-              Margin 5. ]
+              Margin (dip 5.) ]
           TouchableHighlightProperties.UnderlayColor "#5499C4"
           OnPress onPress ]
 
 let view count (dispatch:Dispatch<Msg>) =
     let onClick msg =
-      fun () -> msg |> dispatch
+        fun () -> msg |> dispatch
 
     // construct RN view
     view [ ViewProperties.Style
             [ AlignSelf Alignment.Stretch
-              Padding 20.
+              Padding (dip 20.)
               ShadowColor "#000000"
               ShadowOpacity 0.8
               ShadowRadius 3.
@@ -93,4 +100,3 @@ import * as app from './out/App';
 
 and that's it.
 *)
-

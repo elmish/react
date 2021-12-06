@@ -1,22 +1,24 @@
+(**
+---
+layout: standard
+title: Browser SPA
+toc: false
+---
+**)
+
 (*** hide ***)
-#I "../../.paket/load/netstandard2.0"
-#I "../../src/bin/Debug/netstandard1.6"
-#r "Fable.Core.dll"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
-#r "Fable.Elmish.React.dll"
-open Elmish
+
+#load "./../prelude.fsx"
 
 (**
-A React SPA
-=======
-
 Let's define our model
 *)
 
 type Model = int
 
-type Msg = Increment | Decrement
+type Msg =
+    | Increment
+    | Decrement
 
 (**
 ### Handle our state initialization and updates
@@ -25,27 +27,29 @@ type Msg = Increment | Decrement
 open Elmish
 
 let init () =
-  0
+    0
 
 let update (msg:Msg) count =
-  match msg with
-  | Increment -> count + 1
-  | Decrement -> count - 1
+    match msg with
+    | Increment -> count + 1
+    | Decrement -> count - 1
 (**
 ### Rendering views with React
 Let's open React bindings and define our view using them:
 
 *)
 
+open Fable.React
 open Fable.React.Props
-module R = Fable.React
 
 let view model dispatch =
 
-  R.div []
-      [ R.button [ OnClick (fun _ -> dispatch Decrement) ] [ R.str "-" ]
-        R.div [] [ R.str (sprintf "%A" model) ]
-        R.button [ OnClick (fun _ -> dispatch Increment) ] [ R.str "+" ] ]
+    div []
+        [
+            button [ OnClick (fun _ -> dispatch Decrement) ] [ str "-" ]
+            div [] [ str (sprintf "%A" model) ]
+            button [ OnClick (fun _ -> dispatch Increment) ] [ str "+" ]
+        ]
 
 (**
 ### Create the program instance
@@ -60,7 +64,7 @@ by augumenting our program instance and passing the placeholder id:
 open Elmish.React
 
 Program.mkSimple init update view
-|> Program.withReact "elmish-app"
+|> Program.withReactBatched "elmish-app"
 |> Program.run
 
 (**

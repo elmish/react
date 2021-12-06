@@ -5,8 +5,7 @@ nuget Fake.IO.FileSystem
 nuget Fake.DotNet.Cli
 nuget Fake.Core.Target
 nuget Fake.Core.ReleaseNotes
-nuget Fake.Tools.Git
-nuget Fake.DotNet.FSFormatting //"
+nuget Fake.Tools.Git //"
 #if !FAKE
 #load ".fake/build.fsx/intellisense.fsx"
 #r "Facades/netstandard"
@@ -92,71 +91,28 @@ Target.create "PublishNuget" (fun _ ->
 
 // --------------------------------------------------------------------------------------
 // Generate the documentation
-let docs_out = "docs/output"
-let docsHome = "https://elmish.github.io/react"
+Target.create "GenerateDocs" (fun _ ->
+    let res = Shell.Exec("npm", "run docs:build")
 
-let copyFiles() =
-    let header =
-        Fake.Core.String.splitStr "\n" """(*** hide ***)
-#I "../../src/bin/Release/netstandard2.0"
-#r "Fable.Core.dll"
-#r "Fable.Elmish.dll"
-#r "Fable.Elmish.React.dll"
-
-(**
-*)"""
-
-    !!"src/*.fs"
-    |> Seq.map (fun fn -> File.read fn |> Seq.append header, fn)
-    |> Seq.iter (fun (lines,fn) ->
-        let fsx = Path.Combine("docs/content",Path.ChangeExtension(fn |> Path.GetFileName, "fsx"))
-        lines |> File.writeNew fsx)
-
-let generateDocs _ =
-    copyFiles()
-    let info =
-      [ "project-name", "elmish-react"
-        "project-author", "Eugene Tolmachev"
-        "project-summary", "Elmish React extensions"
-        "project-github", sprintf "%s/%s" gitHome gitName
-        "project-nuget", "http://nuget.org/packages/Fable.Elmish.React" ]
-
-    FSFormatting.createDocs (fun args ->
-            { args with
-                Source = "docs/content"
-                OutputDirectory = docs_out
-                LayoutRoots = [ "docs/tools/templates"
-                                ".fake/build.fsx/packages/FSharp.Formatting/templates" ]
-                ProjectParameters  = ("root", docsHome)::info
-                Template = "docpage.cshtml" } )
-
-Target.create "GenerateDocs" generateDocs
-
+    if res <> 0 then
+        failwithf "Failed to generate docs"
+)
 
 Target.create "WatchDocs" (fun _ ->
-    use watcher =
-        (!! "docs/content/**/*.*")
-        |> ChangeWatcher.run generateDocs
+    let res = Shell.Exec("npm", "run docs:watch")
 
-    Trace.traceImportant "Waiting for help edits. Press any key to stop."
-
-    System.Console.ReadKey() |> ignore
-
-    watcher.Dispose()
+    if res <> 0 then
+        failwithf "Failed to watch docs: %d" res
 )
 
 // --------------------------------------------------------------------------------------
 // Release Scripts
 
 Target.create "ReleaseDocs" (fun _ ->
-    let tempDocsDir = "temp/gh-pages"
-    Shell.cleanDir tempDocsDir
-    Git.Repository.cloneSingleBranch "" gitRepo "gh-pages" tempDocsDir
+    let res = Shell.Exec("npm", "run docs:publish")
 
-    Shell.copyRecursive docs_out tempDocsDir true |> Trace.tracefn "%A"
-    Git.Staging.stageAll tempDocsDir
-    Git.Commit.exec tempDocsDir (sprintf "Update generated documentation for version %s" release.NugetVersion)
-    Git.Branches.push tempDocsDir
+    if res <> 0 then
+        failwithf "Failed to publish docs: %d" res
 )
 
 Target.create "Publish" ignore

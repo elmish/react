@@ -1,9 +1,17 @@
+(**
+---
+layout: standard
+title:
+toc: false
+---
+**)
+
 (*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../.paket/load/netstandard2.0"
-#r "Fable.React.dll"
-#r "Fable.Elmish.dll"
-#r "Fable.Elmish.React.dll"
+
+// This block of code is omitted in the generated HTML documentation. Use
+// it to define helpers that you do not want to show in the documentation.
+
+#load "prelude.fsx"
 
 let view1 model : Fable.React.ReactElement = failwith "not implemented"
 let view2 model (dispatch:Elmish.Dispatch<'msg>) : Fable.React.ReactElement = failwith "not implemented"
@@ -16,30 +24,30 @@ let model2 = Some 2.
 let dispatch : Elmish.Dispatch<unit> = failwith "not implemented"
 
 (**
-React extensions for Elmish apps
-=======
+
+## React extensions for Elmish apps
 
 Elmish-React implements boilerplate to wire up the rendering of React and React Native components and several rendering optimization functions.
 
 
-## Installation
+### Installation
 
-```shell
-paket add nuget Fable.Elmish.React
+```sh
+dotnet add package Fable.Elmish.React
 ```
 
 You also need to install React:
 
-```shell
+```sh
 yarn add react react-dom
 ```
 
-## Program module extensions
+### Program module extensions
 Both React and React Native applications need a root component to be rendered at the specified placeholder, see
-[browser](./browser.html) and [native](./native.html) tutorials for details.
+[browser](/react/tutorials/browser.html) and [native](/react/tutorials/native.html) tutorials for details.
 
 
-## Lazy views
+### Lazy views
 By default, every time the main update function is called (upon receiving and processing a message), the entire DOM is constructed anew and passed to React for [reconciliation](https://reactjs.org/docs/reconciliation.html).
 If there are no changes in the model of some component, its view function will under normal circumstances not return a different result. React will then still perform reconciliation and realize that there is no need to update the component's UI.
 Consequently, when the DOM is sufficiently large or its construction extremely time-consuming, this unnecessary work may have noticeable repercussions in terms of application performance.
