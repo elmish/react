@@ -3,7 +3,7 @@
         "title": "Elmish.React",
         "url": "https://elmish.github.io",
         "baseUrl": "/react/",
-        "editUrl" : "https://github.com/elmish/react/edit/master/docs",
+        "editUrl" : "https://github.com/elmish/react/edit/v4.x/docs",
         "favIcon": "static/img/logo.png"
     },
     "navbar": {
