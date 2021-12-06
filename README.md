@@ -1,6 +1,6 @@
 Elmish-React: React extensions for [elmish](https://github.com/elmish/elmish) applications.
 =======
-[![Windows Build](https://ci.appveyor.com/api/projects/status/vg3200aksdbvx5me?svg=true)](https://ci.appveyor.com/project/et1975/react) [![NuGet version](https://badge.fury.io/nu/react.svg)](https://badge.fury.io/nu/react)
+[![Windows Build](https://ci.appveyor.com/api/projects/status/vg3200aksdbvx5me/branch/v4.x?svg=true)](https://ci.appveyor.com/project/et1975/react/branch/v4.x) [![NuGet version](https://badge.fury.io/nu/react.svg)](https://badge.fury.io/nu/react)
 
 React and ReactNative support for Elmish apps.
 
