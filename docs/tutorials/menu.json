@@ -1,0 +1,10 @@
+[
+    {
+        "type": "section",
+        "label": "Tutorials",
+        "items": [
+            "tutorials/browser",
+            "tutorials/native"
+        ]
+    }
+]

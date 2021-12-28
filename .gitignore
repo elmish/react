@@ -35,3 +35,6 @@ docs/output
 temp
 paket-files
 .ionide
+
+.nacara
+docs_deploy
