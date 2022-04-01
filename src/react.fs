@@ -19,38 +19,76 @@ module Program =
         open Browser
         open Elmish
 
-        let withReactBatchedUsing lazyView2With placeholderId (program:Program<_,_,_,_>) =
-            let mutable lastRequest = None
-            let setState model dispatch =
-                match lastRequest with
-                | Some r -> window.cancelAnimationFrame r
-                | _ -> ()
+        // Use the new rendering API in React 18+
+        let useRootApi = try int ReactBindings.React.version.[ .. 1 ] >= 18 with _ -> false
 
-                lastRequest <- Some (window.requestAnimationFrame (fun _ ->
-                    ReactDom.render(
-                        lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
-                        document.getElementById placeholderId
-                    )))
+        let withReactBatchedUsing lazyView2With placeholderId (program:Program<_,_,_,_>) =
+            let setState =
+                let mutable lastRequest = None
+
+                if useRootApi then
+                    let root = ReactDomClient.createRoot (document.getElementById placeholderId)
+
+                    fun model dispatch ->
+                        match lastRequest with
+                        | Some r -> window.cancelAnimationFrame r
+                        | _ -> ()
+
+                        lastRequest <- Some (window.requestAnimationFrame (fun _ ->
+                            root.render (lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch)))
+                else
+                    fun model dispatch ->
+                        match lastRequest with
+                        | Some r -> window.cancelAnimationFrame r
+                        | _ -> ()
+
+                        lastRequest <- Some (window.requestAnimationFrame (fun _ ->
+                            ReactDom.render(
+                                lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
+                                document.getElementById placeholderId
+                            )))
 
             program
             |> Program.withSetState setState
 
         let withReactSynchronousUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
-            let setState model dispatch =
-                ReactDom.render(
-                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
-                    document.getElementById placeholderId
-                )
+            let setState =
+                if useRootApi then
+                    let root = ReactDomClient.createRoot (document.getElementById placeholderId)
+
+                    fun model dispatch ->
+                        root.render (lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch)
+                else
+                    fun model dispatch ->
+                        ReactDom.render(
+                            lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
+                            document.getElementById placeholderId
+                        )
 
             program
             |> Program.withSetState setState
 
         let withReactHydrateUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
-            let setState model dispatch =
-                ReactDom.hydrate(
-                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
-                    document.getElementById placeholderId
-                )
+            let setState =
+                if useRootApi then
+                    let mutable root = None
+
+                    fun model dispatch ->
+                        match root with
+                        | None ->
+                            root <-
+                                ReactDomClient.hydrateRoot (
+                                    document.getElementById placeholderId,
+                                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch
+                                ) |> Some
+                        | Some root ->
+                            root.render (lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch)
+                else
+                    fun model dispatch ->
+                        ReactDom.hydrate(
+                            lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch,
+                            document.getElementById placeholderId
+                        )
 
             program
             |> Program.withSetState setState
