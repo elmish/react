@@ -15,16 +15,12 @@ module Program =
 
     module Internal =
 
-        open Fable.Core
         open Fable.React
         open Browser
         open Elmish
 
-        [<Import("version", "react")>]
-        let version = jsNative<string>
-
         // Use the new rendering API in React 18+
-        let useRootApi = try int version.[ .. 1 ] >= 18 with _ -> false
+        let useRootApi = try int ReactBindings.React.version.[ .. 1 ] >= 18 with _ -> false
 
         let withReactBatchedUsing lazyView2With placeholderId (program:Program<_,_,_,_>) =
             let setState =
@@ -75,11 +71,18 @@ module Program =
         let withReactHydrateUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
             let setState =
                 if useRootApi then
+                    let mutable root = None
+
                     fun model dispatch ->
-                        ReactDomClient.hydrateRoot (
-                            document.getElementById placeholderId,
-                            lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch
-                        )
+                        match root with
+                        | None ->
+                            root <-
+                                ReactDomClient.hydrateRoot (
+                                    document.getElementById placeholderId,
+                                    lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch
+                                ) |> Some
+                        | Some root ->
+                            root.render (lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch)
                 else
                     fun model dispatch ->
                         ReactDom.hydrate(
