@@ -1,3 +1,7 @@
+## 4.0.0-beta-2
+
+* Support for React 18
+
 ## 4.0.0-beta-1
 
 * Support for elmish v4
