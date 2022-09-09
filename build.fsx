@@ -48,7 +48,8 @@ Target.create "Build" (fun _ ->
 
 let release = ReleaseNotes.load "RELEASE_NOTES.md"
 
-Target.create "Meta" (fun _ -> $"""
+Target.create "Meta" (fun _ ->
+    $"""
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)/docs/static/img/logo.png" Pack="true" PackagePath="\" />
@@ -61,7 +62,7 @@ Target.create "Meta" (fun _ -> $"""
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <Description>Elmish extensions for writing Fable apps with React and ReactNative</Description>
     <PackageProjectUrl>http://{gitOwner}.github.io/{gitName}</PackageProjectUrl>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryUrl>{gitHome}/{gitName}</RepositoryUrl>
