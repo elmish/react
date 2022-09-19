@@ -1,3 +1,6 @@
+## 4.0.0-beta-3
+* Breaking: Use Fable.React.Types dependency (#68), thanks Alfonso Garcia-Caro!
+
 ## 4.0.0-beta-2
 
 * Support for React 18
