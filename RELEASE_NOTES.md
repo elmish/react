@@ -1,3 +1,6 @@
+## 4.0.0-beta-4
+* Breaking: Use Fable.ReactDom.Types dependency (#71), thanks Alfonso Garcia-Caro!
+
 ## 4.0.0-beta-3
 * Breaking: Use Fable.React.Types dependency (#68), thanks Alfonso Garcia-Caro!
 
