@@ -13,6 +13,6 @@
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.*" />
     <PackageReference Include="Fable.Elmish" Version="4.0.0-beta-*" />
-    <PackageReference Include="Fable.React.Types" Version="18.*" />
+    <PackageReference Include="Fable.ReactDom.Types" Version="18.*" />
   </ItemGroup>
 </Project>
