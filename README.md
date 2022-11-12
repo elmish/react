@@ -12,7 +12,7 @@ The easiest way to start with Elmish and React is to use the [template](https://
 
 ```shell
 dotnet new -i "Fable.Template.Elmish.React::*"
-dotnet new elmish-react -n MyProject
+dotnet new fable-elmish-react -n MyProject
 ```
 
 Alternatively, you can just add it to an existing project via paket:
