@@ -1,3 +1,8 @@
+## 4.0.0
+* Breaking: Use Fable.ReactDom.Types dependency (#71), thanks Alfonso Garcia-Caro!
+* Support for React 18
+* Breaking: Support for elmish v4
+
 ## 4.0.0-beta-4
 * Breaking: Use Fable.ReactDom.Types dependency (#71), thanks Alfonso Garcia-Caro!
 
