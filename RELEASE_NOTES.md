@@ -1,3 +1,6 @@
+## 5.0.0-beta-1
+* Breaking: Remove support for React 17 (#99), thanks @kerams
+
 ## 4.0.0
 * Breaking: Use Fable.ReactDom.Types dependency (#71), thanks Alfonso Garcia-Caro!
 * Support for React 18
