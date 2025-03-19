@@ -1,4 +1,4 @@
-## 5.0.0-beta-1
+## 5.0.0-beta-2
 * Breaking: Remove support for React 17 (#99), thanks @kerams
 
 ## 4.0.0
