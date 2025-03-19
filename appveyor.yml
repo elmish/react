@@ -1,8 +1,5 @@
 image: Visual Studio 2022
 
-install:
-  - ps: Install-Product node 17 x64
-
 build_script:
   - cmd: dotnet fsi build.fsx
 

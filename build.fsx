@@ -5,7 +5,7 @@
 #r "nuget: Fake.Core.Target, 5.23.1"
 #r "nuget: Fake.Core.ReleaseNotes, 5.23.1"
 #r "nuget: Fake.Tools.Git, 5.23.1"
-
+#r "nuget: MSBuild.StructuredLogger, 2.2.441"
 
 open Fake.Core
 open Fake.Core.TargetOperators
