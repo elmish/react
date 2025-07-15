@@ -1,3 +1,6 @@
+## 5.0.0
+* Breaking: Elmish v5 reference, Fable v4
+
 ## 5.0.0-beta-2
 * Breaking: Remove support for React 17 (#99), thanks @kerams
 
