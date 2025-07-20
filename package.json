@@ -20,13 +20,12 @@
         "bulma": "^0.9.3",
         "gatsby-remark-vscode": "^3.3.1",
         "gh-pages": "^5.0.0",
+        "nacara": "^1.5.1",
         "nacara-layout-standard": "^1.4.2",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "remark-parse": "^11.0.0",
         "unified": "^10.1.1",
         "vscode-theme-onelight": "github:akamud/vscode-theme-onelight"
-    },
-    "dependencies": {
-        "nacara": "^1.5.1"
     }
 }
