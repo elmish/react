@@ -1,3 +1,7 @@
+## 5.0.1
+
+* Update to latest Elmish (5.0.2)
+
 ## 5.0.0
 * Breaking: Elmish v5 reference, Fable v4
 
