@@ -20,6 +20,7 @@ module Program =
         open Elmish
 
         let withReactBatchedUsing lazyView2With placeholderId (program:Program<_,_,_,_>) =
+            let render = lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program)
             let setState =
                 let mutable lastRequest = None
                 let root = ReactDomClient.createRoot (document.getElementById placeholderId)
@@ -30,22 +31,24 @@ module Program =
                     | _ -> ()
 
                     lastRequest <- Some (window.requestAnimationFrame (fun _ ->
-                        root.render (lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch)))
+                        root.render (render model dispatch)))
 
             program
             |> Program.withSetState setState
 
         let withReactSynchronousUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
+            let render = lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program)
             let setState =
                 let root = ReactDomClient.createRoot (document.getElementById placeholderId)
 
                 fun model dispatch ->
-                    root.render (lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch)
+                    root.render (render model dispatch)
 
             program
             |> Program.withSetState setState
 
         let withReactHydrateUsing lazyView2With placeholderId (program:Elmish.Program<_,_,_,_>) =
+            let render = lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program)
             let setState =
                 let mutable root = None
 
@@ -55,10 +58,10 @@ module Program =
                         root <-
                             ReactDomClient.hydrateRoot (
                                 document.getElementById placeholderId,
-                                lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch
+                                render model dispatch
                             ) |> Some
                     | Some root ->
-                        root.render (lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program) model dispatch)
+                        root.render (render model dispatch)
 
             program
             |> Program.withSetState setState

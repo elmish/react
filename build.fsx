@@ -122,6 +122,11 @@ Target.create "ReleaseDocs" (fun _ ->
         failwithf "Failed to publish docs: %d" res
 )
 
+Target.create "Test" (fun _ ->
+    let res = Shell.Exec("npm", "test")
+    if res <> 0 then failwithf "Tests failed: %d" res
+)
+
 Target.create "Publish" ignore
 
 // Build order
@@ -129,6 +134,7 @@ Target.create "Publish" ignore
     ==> "Meta"
     ==> "Restore"
     ==> "Build"
+    ==> "Test"
     ==> "Package"
     ==> "PublishNuget"
     ==> "Publish"
