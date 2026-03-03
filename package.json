@@ -7,6 +7,7 @@
         "npm": ">=7.0.0"
     },
     "scripts": {
+        "test": "dotnet tool restore && dotnet fable tests/Tests.fsproj -o tests/out && npx mocha --require global-jsdom/register tests/out/Main.js",
         "docs:watch": "nacara watch",
         "docs:build": "nacara build",
         "docs:publish": "nacara build && gh-pages -d docs_deploy"
@@ -20,10 +21,13 @@
         "bulma": "^0.9.3",
         "gatsby-remark-vscode": "^3.3.1",
         "gh-pages": "^5.0.0",
+        "global-jsdom": "^9.0.0",
+        "jsdom": "^21.0.0",
+        "mocha": "^10.8.2",
         "nacara": "^1.5.1",
         "nacara-layout-standard": "^1.4.2",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
         "remark-parse": "^11.0.0",
         "unified": "^10.1.1",
         "vscode-theme-onelight": "github:akamud/vscode-theme-onelight"

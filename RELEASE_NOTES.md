@@ -1,5 +1,10 @@
-## 5.0.1
+## 5.5.0-beta-1
+* Fixes root element remounting on each loop iteration
+* Replaces lazy view function implementations with memo
+* Lazy views preserve original view function's name
+* Introduces `withKey` function for lazy views to support sibling element differentiation (#14)
 
+## 5.0.1
 * Update to latest Elmish (5.0.2)
 
 ## 5.0.0
