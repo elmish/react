@@ -1,4 +1,4 @@
-## 5.5.0-beta-1
+## 5.5.0
 * Fixes root element remounting on each loop iteration
 * Replaces lazy view function implementations with memo
 * Lazy views preserve original view function's name
