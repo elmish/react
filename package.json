@@ -22,7 +22,7 @@
         "gatsby-remark-vscode": "^3.3.1",
         "gh-pages": "^5.0.0",
         "global-jsdom": "^9.0.0",
-        "jsdom": "^21.0.0",
+        "jsdom": "^29.0.1",
         "mocha": "^10.8.2",
         "nacara": "^1.5.1",
         "nacara-layout-standard": "^1.4.2",
