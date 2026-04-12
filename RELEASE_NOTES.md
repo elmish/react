@@ -1,3 +1,7 @@
+## 6.0.0-beta-1
+* Split Native and React
+* React Native and Expo views now use `lazyView2With` (React.memo) to skip re-renders when the model reference is unchanged
+
 ## 5.6.0
 * Initial Expo support for React Native
 

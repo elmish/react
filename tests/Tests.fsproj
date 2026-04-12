@@ -9,7 +9,7 @@
     <Compile Include="Main.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../src/Fable.Elmish.React.fsproj" />
+    <ProjectReference Include="../react/Fable.Elmish.React.fsproj" />
     <PackageReference Include="Fable.Mocha" Version="2.*" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@ namespace Elmish.ReactNative
 open Fable.React
 open Fable.Core
 open Elmish
+open Elmish.React
 
 module Components =
     type AppState = {
@@ -37,18 +38,18 @@ type AppRegistry =
 
 [<RequireQualifiedAccess>]
 module Program =
-    open Elmish.React
     open Components
 
     /// Setup rendering of root ReactNative component
     let withReactNative appKey (program:Program<_,_,_,_>) =
+        let render = lazyView2With (fun x y -> obj.ReferenceEquals(x,y)) (Program.view program)
         AppRegistry.registerComponent(appKey, fun () -> unbox JsInterop.jsConstructor<App>)
         let setState m d =
              match appState with
              | Some state ->
-                state.setState { state with render = fun () -> (Program.view program) m d }
+                state.setState { state with render = fun () -> render m d }
              | _ ->
-                appState <- Some { render = fun () -> (Program.view program) m d
+                appState <- Some { render = fun () -> render m d
                                    setState = ignore }
 
         program

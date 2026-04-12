@@ -25,7 +25,8 @@ let gitRepo = sprintf "git@github.com:%s/%s" gitOwner gitName
 
 // Filesets
 let projects  =
-      !! "src/**.fsproj"
+      !! "react/**.fsproj"
+      ++ "react-native/**.fsproj"
 
 System.Environment.GetCommandLineArgs() 
 |> Array.skip 2 // fsi.exe; build.fsx
@@ -35,8 +36,10 @@ System.Environment.GetCommandLineArgs()
 |> Context.setExecutionContext
 
 Target.create "Clean" (fun _ ->
-    Shell.cleanDir "src/obj"
-    Shell.cleanDir "src/bin"
+    Shell.cleanDir "react/obj"
+    Shell.cleanDir "react/bin"
+    Shell.cleanDir "react-native/obj"
+    Shell.cleanDir "react-native/bin"
 )
 
 Target.create "Restore" (fun _ ->
@@ -63,7 +66,7 @@ Target.create "Meta" (fun _ ->
   <PropertyGroup>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <Description>Elmish extensions for writing Fable apps with React and ReactNative</Description>
+    <Description>Elmish extensions for writing Fable apps with React</Description>
     <PackageProjectUrl>http://{gitOwner}.github.io/{gitName}</PackageProjectUrl>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -89,10 +92,15 @@ Target.create "Package" (fun _ ->
 
 Target.create "PublishNuget" (fun _ ->
     let exec dir = DotNet.exec (DotNet.Options.withWorkingDirectory dir)
+    let key = Environment.environVar "nugetkey"
 
-    let args = sprintf "push Fable.Elmish.React.%s.nupkg -s nuget.org -k %s" (string release.SemVer) (Environment.environVar "nugetkey")
-    let result = exec "src/bin/Release" "nuget" args
-    if (not result.OK) then failwithf "%A" result.Errors
+    let pushPkg dir name =
+        let args = sprintf "push %s.%s.nupkg -s nuget.org -k %s" name (string release.SemVer) key
+        let result = exec dir "nuget" args
+        if (not result.OK) then failwithf "%A" result.Errors
+
+    pushPkg "react/bin/Release" "Fable.Elmish.React"
+    pushPkg "react-native/bin/Release" "Fable.Elmish.ReactNative"
 )
 
 

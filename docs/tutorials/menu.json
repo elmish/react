@@ -4,7 +4,8 @@
         "label": "Tutorials",
         "items": [
             "tutorials/browser",
-            "tutorials/native"
+            "tutorials/native",
+            "tutorials/expo"
         ]
     }
 ]
