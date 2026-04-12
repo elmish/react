@@ -6,6 +6,7 @@
     <Compile Include="common.fs" />
     <Compile Include="react.fs" />
     <Compile Include="react-native.fs" />
+    <Compile Include="expo.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="*.fsproj; *.fs" PackagePath="fable\" />

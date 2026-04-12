@@ -1,3 +1,6 @@
+## 5.6.0
+* Initial Expo support for React Native
+
 ## 5.5.0
 * Fixes root element remounting on each loop iteration
 * Replaces lazy view function implementations with memo
