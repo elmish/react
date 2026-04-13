@@ -35,3 +35,7 @@ yarn add react react-native
 dotnet add package Fable.Elmish.ReactNative
 yarn add expo react react-native
 ```
+
+## Development
+
+This repository uses symbolic links to share source files between projects (`react-native/common.fs` → `react/common.fs`). On Windows, this requires Developer Mode to be enabled (Settings → Update & Security → For developers) or `git config --global core.symlinks true`.

@@ -3,12 +3,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../react/common.fs" Link="common.fs" />
+    <Compile Include="common.fs" />
     <Compile Include="react-native.fs" />
     <Compile Include="expo.fs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="*.fsproj; *.fs; ../react/common.fs" PackagePath="fable\" />
+    <Content Include="*.fsproj; *.fs" PackagePath="fable\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.*" />
