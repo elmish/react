@@ -16,10 +16,14 @@
         "type": "git",
         "url": "git+https://github.com/elmish/hmr.git"
     },
+    "overrides": {
+        "brace-expansion": ">=5.0.8",
+        "serialize-javascript": ">=7.0.5",
+        "semver": ">=7.5.2"
+    },
     "devDependencies": {
         "@babel/preset-react": "^7.16.0",
         "bulma": "^0.9.3",
-        "gatsby-remark-vscode": "^3.3.1",
         "gh-pages": "^5.0.0",
         "global-jsdom": "^29.0.0",
         "jsdom": "^29.0.1",
@@ -29,7 +33,6 @@
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "remark-parse": "^11.0.0",
-        "unified": "^10.1.1",
-        "vscode-theme-onelight": "github:akamud/vscode-theme-onelight"
+        "unified": "^10.1.1"
     }
 }
