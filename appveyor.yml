@@ -1,7 +1,0 @@
-image: Visual Studio 2022
-
-build_script:
-  - cmd: dotnet fsi build.fsx
-
-cache:
-- "%LOCALAPPDATA%\\Yarn"
